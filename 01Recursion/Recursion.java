@@ -17,13 +17,13 @@ public class Recursion {
 	if (n <= 1) {
 	    return n;
 	}
-        return fibHelp(n-1,n-2, 0);
+        return fibHelp(n, 0, 1);
     }
-    private int fibHelp(int a, int b, int sum) {
-	if (a <= 0 || b <= 0) {
-	    return sum;
+    private int fibHelp(int num,int a,  int sum) {
+	if (num == 0) {
+	    return a;
 	}
-	return fibHelp(a-1, a-2, sum);
+	return fibHelp(num-1, sum,  sum+a);
     }
     public int badFib(int n) {
 	if (n <= 1) {
