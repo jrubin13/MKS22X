@@ -1,0 +1,4 @@
+public class Driver {
+    QueenBoard q = new QueenBoard(5);
+    System.out.println(q);
+}
