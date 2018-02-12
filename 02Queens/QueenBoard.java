@@ -28,20 +28,24 @@ public class QueenBoard{
     public boolean addQueen(int r, int c){
 	if (board[r][c] == 0) {
 	    board[r][c] = -1;
-	    for (int i = r+1; i < board.length; i++) {
-		board[i][i] += 1;
+	    int column = c+1;
+	    int rows = r+1;
+	    while (rows < board.length && column < board.length) { //diagonal down
+		board[rows][column] += 1;
+		column += 1;
+		rows += 1;
 	    }
-	    int row = r+1;
+	    int row = r-1;
 	    int col = c+1;
-	    while (row >= 0 && col < board.length) {
+	    while (row >= 0 && col < board.length) { //diagonal up
 		board[row][col] += 1;
 		row -= 1;
 		col += 1;
 	    }
-	    for (int i = c+1; i < board[0].length; i++) {
+	    for (int i = c+1; i < board[0].length; i++) { //right
 		board[r][i] += 1;
 	    }
-	    for (int i = r+1; i < board.length; i++) {
+	    for (int i = r+1; i < board.length; i++) { //down
 		board[i][c] += 1;
 	    }
 	    return true;
@@ -51,12 +55,16 @@ public class QueenBoard{
     public boolean removeQueen(int r, int c) {
 	if (board[r][c] == -1) {
 	    board[r][c] = 0;
-	    for (int i = r; i < board.length; i++) {
-		if (board[i][i] > 0) {
-		    board[i][i] -= 1;
+	    int column = c+1;
+	    int rows = r+1;
+	    while (rows < board.length && column < board.length) { //diagonal down
+		if (board[rows][column] > 0) {
+		    board[rows][column] += 1;
 		}
+		column += 1;
+		rows += 1;
 	    }
-	    int row = r+1;
+	    int row = r-1;
 	    int col = c+1;
 	    while (row >= 0 && col < board.length) {
 		if (board[row][col] > 0) {
@@ -85,6 +93,9 @@ public class QueenBoard{
     public boolean solveHelp(int c,int r) {
 	if (c < 0 || r >= board.length) {
 	    return false;
+	}
+	if (c >= board.length) {
+	    return true;
 	}
 	for (int col = c; col < board.length; col++) {
 	    boolean work = false;
