@@ -48,6 +48,9 @@ public class QueenBoard{
 	    for (int i = r+1; i < board.length; i++) { //down
 		board[i][c] += 1;
 	    }
+	    for (int i = r-1; i >= 0; i--) { //up
+		board[i][c] += 1;
+	    }
 	    return true;
 	}
 	return false;
@@ -59,7 +62,7 @@ public class QueenBoard{
 	    int rows = r+1;
 	    while (rows < board.length && column < board.length) { //diagonal down
 		if (board[rows][column] > 0) {
-		    board[rows][column] += 1;
+		    board[rows][column] -= 1;
 		}
 		column += 1;
 		rows += 1;
@@ -83,39 +86,49 @@ public class QueenBoard{
 		    board[i][c] -= 1;
 		}
 	    }
-	    return true;
-	}
-	return false;
-    }
-    public boolean solve() {
-	return solveHelp (0,0);
-    }
-    public boolean solveHelp(int c,int r) {
-	if (c < 0 || r >= board.length) {
-	    return false;
-	}
-	if (c >= board.length) {
-	    return true;
-	}
-	for (int col = c; col < board.length; col++) {
-	    boolean work = false;
-	    for (int row = r; row < board.length; row++) {
-		if (addQueen(row, col)) {
-		    work = true;
+	    for (int i = r-1; i >= 0; i--) {
+		if (board[i][c] > 0) {
+		    board[i][c] -= 1;
 		}
-	    }
-	    if (!work) {
-		for (int i = 0; i < r; r++) {
-		    if (board[c-1][i] == -1) {
-			removeQueen(c-1, i);
-		    }
-		}
-		return solveHelp(c-1, r+1);
 	    }
 	}
 	return true;
     }
+    public boolean solve() {
+	return solveHelp (0);
+    }
+    
+    public boolean solveHelp(int c) {
+	if (c >= board.length) {
+	    return true;
+	}
+	for (int r = 0; r < board.length; r++) {
+	    if (addQueen(r,c)) {
+		if (solveHelp(c+1)) {
+		    return true;
+		}
+		removeQueen(r,c);
+	    }
+	    //removeQueen(r,c);
+	}
+	return false;
+    }
     public int countSolutions() {
-	return 0;
+	return countHelp(0, 0);
+    }
+    public int countHelp(int c, int total) {
+	if (c >= board.length) {
+	    return total;
+	}
+	for (int r = 0; r < board.length; r++) {
+	    if (addQueen(r,c)) {
+		if (countHelp(c+1, total)) {
+		    total += 1;
+		}
+		removeQueen(r,c);
+	    }
+	    //removeQueen(r,c);
+	}
+	return total;
     }
 }
