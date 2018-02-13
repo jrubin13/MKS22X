@@ -55,7 +55,16 @@ public class QueenBoard{
 	}
 	return false;
     }
-    public boolean removeQueen(int r, int c) {
+    public boolean removeQueen(int c) {
+	int r = -5;
+	for (int i = 0; i < board.length; i++) {
+	    if (board[i][c] == -1) {
+		r = i;
+	    }
+	}
+	if (r == -5) {
+	    return false;
+	}
 	if (board[r][c] == -1) {
 	    board[r][c] = 0;
 	    int column = c+1;
@@ -95,6 +104,9 @@ public class QueenBoard{
 	return true;
     }
     public boolean solve() {
+	if (board.length <= 4) {
+	    return false;
+	}
 	return solveHelp (0);
     }
     
@@ -107,7 +119,8 @@ public class QueenBoard{
 		if (solveHelp(c+1)) {
 		    return true;
 		}
-		removeQueen(r,c);
+		removeQueen(c);
+		removeQueen(c-1);
 	    }
 	    //removeQueen(r,c);
 	}
@@ -122,10 +135,8 @@ public class QueenBoard{
 	}
 	for (int r = 0; r < board.length; r++) {
 	    if (addQueen(r,c)) {
-		if (countHelp(c+1, total)) {
-		    total += 1;
-		}
-		removeQueen(r,c);
+	        countHelp(c+1, total+1);
+		removeQueen(c);
 	    }
 	    //removeQueen(r,c);
 	}
