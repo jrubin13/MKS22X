@@ -119,10 +119,12 @@ public class QueenBoard{
 		if (solveHelp(c+1)) {
 		    return true;
 		}
-		removeQueen(c);
-		removeQueen(c-1);
+		else {
+		    removeQueen(c);
+		    removeQueen(c-1);
+		}
 	    }
-	    //removeQueen(r,c);
+	    //removeQueen(c);
 	}
 	return false;
     }
