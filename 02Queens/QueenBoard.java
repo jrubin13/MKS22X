@@ -138,9 +138,12 @@ public class QueenBoard{
 	}
 	for (int r = 0; r < board.length; r++) {
 	    if (addQueen(r,c)) {
-		countHelp(c+1, total+1);
-		removeQueen(r, c);
+		if (solveHelp(c+1)) {
+		    total += 1;
+		    //countHelp(c+1, total+1);
+		}
 	    }
+	    removeQueen(r, c);
 	}
 	return total;
     }
