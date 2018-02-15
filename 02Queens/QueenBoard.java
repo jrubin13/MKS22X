@@ -45,26 +45,17 @@ public class QueenBoard{
 	    for (int i = c+1; i < board[0].length; i++) { //right
 		board[r][i] += 1;
 	    }
-	    for (int i = r+1; i < board.length; i++) { //down
+	    /*for (int i = r+1; i < board.length; i++) { //down
 		board[i][c] += 1;
 	    }
 	    for (int i = r-1; i >= 0; i--) { //up
 		board[i][c] += 1;
-	    }
+		}*/
 	    return true;
 	}
 	return false;
     }
-    public boolean removeQueen(int c) {
-	int r = -5;
-	for (int i = 0; i < board.length; i++) {
-	    if (board[i][c] == -1) {
-		r = i;
-	    }
-	}
-	if (r == -5) {
-	    return false;
-	}
+    public boolean removeQueen(int r, int c) {
 	if (board[r][c] == -1) {
 	    board[r][c] = 0;
 	    int column = c+1;
@@ -85,12 +76,12 @@ public class QueenBoard{
 		row -= 1;
 		col += 1;
 	    }
-	    for (int i = c; i < board.length; i++) {
+	    for (int i = c+1; i < board.length; i++) {
 		if (board[r][i] > 0) {
 		    board[r][i] -= 1;
 		}
 	    }
-	    for (int i = r+1; i < board.length; i++) {
+	    /*for (int i = r+1; i < board.length; i++) {
 		if (board[r][i] > 0) {
 		    board[i][c] -= 1;
 		}
@@ -99,13 +90,21 @@ public class QueenBoard{
 		if (board[i][c] > 0) {
 		    board[i][c] -= 1;
 		}
-	    }
+		}*/
+	    return true;
 	}
-	return true;
+	return false;
     }
     public boolean solve() {
-	if (board.length <= 4) {
+	if (board.length < 4) {
 	    return false;
+	}
+	for (int i = 0; i < board.length; i++) {
+	    for (int x = 0; x < board.length; x++) {
+		if (board[i][x] != 0) {
+		    throw new IllegalStateException();
+		}
+	    }
 	}
 	return solveHelp (0);
     }
@@ -116,15 +115,17 @@ public class QueenBoard{
 	}
 	for (int r = 0; r < board.length; r++) {
 	    if (addQueen(r,c)) {
+		/*System.out.println(go(1,1));
+		System.out.println(this);
+		wait(500); //adjust this delay*/
 		if (solveHelp(c+1)) {
 		    return true;
 		}
 		else {
-		    removeQueen(c);
-		    removeQueen(c-1);
+		    removeQueen(r,c);
 		}
 	    }
-	    //removeQueen(c);
+	    removeQueen(r, c);
 	}
 	return false;
     }
@@ -137,11 +138,20 @@ public class QueenBoard{
 	}
 	for (int r = 0; r < board.length; r++) {
 	    if (addQueen(r,c)) {
-	        countHelp(c+1, total+1);
-		removeQueen(c);
+		countHelp(c+1, total+1);
+		removeQueen(r, c);
 	    }
-	    //removeQueen(r,c);
 	}
 	return total;
+    }
+    public String go(int x,int y){
+        return ("\033[" + x + ";" + y + "H");
+    }
+    public void wait(int millis){
+        try {
+            Thread.sleep(millis);
+        }
+        catch (InterruptedException e) {
+        }
     }
 }
