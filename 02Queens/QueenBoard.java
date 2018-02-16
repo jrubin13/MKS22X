@@ -125,7 +125,7 @@ public class QueenBoard{
 		    removeQueen(r,c);
 		}
 	    }
-	    removeQueen(r, c);
+	    //removeQueen(r, c);
 	}
 	return false;
     }
@@ -137,15 +137,20 @@ public class QueenBoard{
 	    return total;
 	}
 	for (int r = 0; r < board.length; r++) {
-	    if (addQueen(r,c)) {
-		if (solveHelp(c+1)) {
-		    total += 1;
-		    //countHelp(c+1, total+1);
+	    if (addQueen(r, c)) {
+	        if (solveHelp(c+1)) {
+		    total += 1;// + countHelp(c+1, total);
+		    //removeQueen(r, c);
 		}
+		removeQueen(r, c);
 	    }
-	    removeQueen(r, c);
 	}
-	return total;
+	for (int i = 0; i < board.length; i++) {
+	    for (int x = 0; x < board.length; x++) {
+		board[i][x] = 0;
+	    }
+	}
+	return total + countHelp(c+1, total);
     }
     public String go(int x,int y){
         return ("\033[" + x + ";" + y + "H");

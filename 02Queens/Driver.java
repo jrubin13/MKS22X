@@ -18,6 +18,7 @@ public class Driver {
 	
 	for (int i = 0; i < 12; i++){
 	    QueenBoard a = new QueenBoard(i);
+	    //System.out.println(a.countSolutions());
 	    System.out.println("# of Solutions for " + i + ": " + a.countSolutions());
 	    /*          Expected Values
 			i --> # of Solutions   i --> # of Solutions
@@ -30,6 +31,6 @@ public class Driver {
 	    */
 	    System.out.println(a); //prints out an empty i by i grid of underscores
 	}
-
+	
     }
 }
