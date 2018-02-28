@@ -134,25 +134,19 @@ public class QueenBoard{
     }
     public int countHelp(int c, int total) {
 	if (c >= board.length) {
-	    return total;
+	    return total+=1;
 	}
 	for (int r = 0; r < board.length; r++) {
 	    if (addQueen(r,c)) {
 		/*System.out.println(go(1,1));
 		System.out.println(this);
 		wait(500); //adjust this delay*/
-		if (solveHelp(c+1)) {
-		    total = total+1;
-		}
-	        for (int i = 0; i < board.length; i++) {
-		    for (int x = 0; x < board.length; x++) {
-			board[i][x] = 0;
-		    }
-		}
+	        total = countHelp(c+1, total);
+		removeQueen(r,c);
 	    }
-	    //removeQueen(r, c);
+	    removeQueen(r, c);
 	}
-	return total+countHelp(c+1, total);
+	return total;
     }
     public String go(int x,int y){
         return ("\033[" + x + ";" + y + "H");
