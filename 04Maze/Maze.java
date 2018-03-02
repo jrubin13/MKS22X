@@ -90,7 +90,18 @@ public class Maze{
 
             //and start solving at the location of the s.
             //return solve(???,???);
-	return 1;
+	int Srow = -1;
+	int Scol = -1;
+	for (int i = 0; i < maze.length; i++) {
+	    for (int x = 0; x < maze[0].length; x++) {
+		if (maze[i][x] == 'S') {
+		    maze[i][x] = '.';
+		    Srow = i;
+		    Scol = x;
+		}
+	    }
+	}
+	return solve(Srow, Scol);
     }
 
     /*
@@ -117,13 +128,14 @@ public class Maze{
         }
 
         //COMPLETE SOLVE
+	
         return -1; //so it compiles
     }
     public String toString() {
 	String ans = "";
 	for (int i = 0; i < maze.length; i++) {
 	    for (int x = 0; x < maze[0].length; x++) {
-		ans = ans + maze[i][x];
+		ans +=  "" + maze[i][x];
 	    }
 	    ans += "\n";
 	}
