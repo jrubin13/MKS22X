@@ -12,10 +12,11 @@ public class Driver {
 	for (int i = 0; i < 3; i++){
 	    for (int j = 0; j < 3; j++){
 		if (a.solve(i,j)){
+		    System.out.println(a);
 		    System.out.println("There is an error with your solve method");
 		}
 	    }
-    } //prints nothing
+	} //prints nothing
 	
 	System.out.println(a.countSolutions(0,0)); //prints 0
 	
@@ -24,7 +25,7 @@ public class Driver {
 	KnightBoard b = new KnightBoard(5,5);
 	System.out.println(b.solve(0,0)); //prints true
 	System.out.println(b); //prints a valid solution
-
+	
 	try{
 	    b.solve(0,0);
 	}catch(IllegalStateException e){
@@ -99,4 +100,5 @@ public class Driver {
 	System.out.println(d.countSolutions(0,0)); //prints 304
 	
     }
+    
 }

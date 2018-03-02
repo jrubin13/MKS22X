@@ -22,7 +22,7 @@ public class KnightBoard {
 	for (int i = 0; i < rows; i++) {
 	    for (int z = 0; z < cols; z++) {
 		if (board[i][z] == 0) {
-		    ans += "_ ";
+		    ans += " _ ";
 		}
 		else if (board[i][z] >= 10) {
 		    ans = ans + board[i][z] + " ";
@@ -50,7 +50,6 @@ public class KnightBoard {
 	return solveH(row, col, 2);
     }
     public int countSolutions(int row, int col) {
-	int total = 0;
 	for (int i = 0; i < rows; i++) {
 	    for (int z = 0; z < cols; z++) {
 		if (board[i][z] != 0) {
@@ -61,24 +60,54 @@ public class KnightBoard {
 	if (row < 0 || col < 0 || row >= rows || col >= cols) {
 	    throw new IllegalArgumentException();
 	}
-	board[row][col] = 1;
-        for (int i = 0; i < 8; i++) {
-	    if (solveH(row, col, 2)) {
-		total+= 1;
-	    }
-	}
-	return total;
+        return countSolve(row, col, 0);
     }
     private boolean solveH(int row ,int col, int level) {
-	if (level == row*col) {
+	if (level > rows*cols) {
 	    return true;
 	}
 	for (int i = 0; i < 8; i++) {
 	    if ((row+x[i]>=0&&row+x[i]<rows) && (col+y[i]>=0&&col+y[i]<cols) && (board[row+x[i]][col+y[i]]==0)) {
 		board[row+x[i]][col+y[i]] = level;
-		solveH(row+x[i], col+y[i], level+1);
+		//clearTerminal();
+		//System.out.println(go(1,1));
+		//System.out.println(this);
+		//wait(50); //adjust this delay
+		if (solveH(row+x[i], col+y[i], level+1)) {
+		    return true;
+		}
+		board[row+x[i]][col+y[i]] = 0;
 	    }
 	}
 	return false;
+    }
+    private int countSolve(int row, int col, int num) {
+	if (num >= rows*cols) {
+	    return num;
+	}
+	for (int r = 0; r < rows; r++) {
+	    for (int c = 0; c < cols; c++) {
+		for (int i = 0; i < 8; i++) {
+		    if ((row+x[i]>=0&&row+x[i]<rows) && (col+y[i]>=0&&col+y[i]<cols) && (board[row+x[i]][col+y[i]]==0)) {
+		        num = countSolve(row+x[i], col+y[i], num);
+		    }
+		}
+	    }
+	}
+	return num;
+    }
+    public String go(int x,int y){
+        return ("\033[" + x + ";" + y + "H");
+    }
+    public void wait(int millis){
+        try {
+            Thread.sleep(millis);
+        }
+        catch (InterruptedException e) {
+        }
+    }
+    public void clearTerminal(){
+        //erase terminal, go to top left of screen.
+        System.out.println("\033[2J\033[1;1H");
     }
 }
