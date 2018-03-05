@@ -79,12 +79,12 @@ public class Driver {
 	
 	
 	
-	for (int i = 0; i < 5; i++){
+	/*for (int i = 0; i < 5; i++){
 	    for (int j = 0; j < 5; j++){
 		KnightBoard abc = new KnightBoard(5,5);
 		System.out.println(abc.solve(i,j)); //prints alternating lines of true/false starting with true
 	    }
-	}
+	    }*/
 	KnightBoard c = new KnightBoard(5,5);
 	
 	int totalSol = 0;

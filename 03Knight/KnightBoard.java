@@ -5,12 +5,14 @@ public class KnightBoard {
     int[] x = {1, 1, -1, -1, 2, 2, -2, -2};
     int[] y = {2, -2, 2, -2, 1, -1, 1, -1};
     public KnightBoard(int startingRows,int startingCols)  {
-	board = new int[startingRows][startingCols];
 	rows = startingRows;
 	cols = startingCols;
 	if (rows < 0 || cols < 0) {
 	    throw new IllegalArgumentException();
 	}
+	
+	board = new int[startingRows][startingCols];
+
 	for (int i = 0; i < rows; i++) {
 	    for (int z = 0; z < cols; z++) {
 		board[i][z] = 0;
@@ -36,13 +38,14 @@ public class KnightBoard {
 	return ans;
     }
     public boolean solve(int row, int col) {
-	for (int i = 0; i < rows; i++) {
-	    for (int z = 0; z < cols; z++) {
-		if (board[i][z] != 0) {
-		    throw new IllegalStateException();
-		}
-	    }
-	}
+	//System.out.println(board);
+	//for (int i = 0; i < rows; i++) {
+	//  for (int z = 0; z < cols; z++) {
+	//	if (board[i][z] != 0) {
+	//	    throw new IllegalStateException();
+	//	}
+	//  }
+	//}
 	if (row < 0 || col < 0 || row >= rows || col >= cols) {
 	    throw new IllegalArgumentException();
 	}
@@ -50,13 +53,13 @@ public class KnightBoard {
 	return solveH(row, col, 2);
     }
     public int countSolutions(int row, int col) {
-	for (int i = 0; i < rows; i++) {
-	    for (int z = 0; z < cols; z++) {
-		if (board[i][z] != 0) {
-		    throw new IllegalStateException();
-		}
-	    }
-	}
+	//for (int i = 0; i < rows; i++) {
+	//  for (int z = 0; z < cols; z++) {
+	//	if (board[i][z] != 0) {
+	//	    throw new IllegalStateException();
+	//	}
+	//  }
+	//}
 	if (row < 0 || col < 0 || row >= rows || col >= cols) {
 	    throw new IllegalArgumentException();
 	}
@@ -82,14 +85,17 @@ public class KnightBoard {
 	return false;
     }
     private int countSolve(int row, int col, int num) {
-	if (num >= rows*cols) {
+	if (num > rows*cols) {
 	    return num;
 	}
 	for (int r = 0; r < rows; r++) {
 	    for (int c = 0; c < cols; c++) {
-		for (int i = 0; i < 8; i++) {
-		    if ((row+x[i]>=0&&row+x[i]<rows) && (col+y[i]>=0&&col+y[i]<cols) && (board[row+x[i]][col+y[i]]==0)) {
-		        num = countSolve(row+x[i], col+y[i], num);
+		if (solveH(row, col, 0)) {
+		    num = num+1;
+		}
+		for (int ro = 0; ro < rows; ro++) {
+		    for (int co = 0; co < cols; co++) {
+			board[ro][co] = 0;
 		    }
 		}
 	    }
