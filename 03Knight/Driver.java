@@ -6,8 +6,8 @@ public class Driver {
 	/* Prints
 	   _ _ _
 	   _ _ _
-	   _ _ _
-	*/
+	   _ _ _*/
+	
 	
 	for (int i = 0; i < 3; i++){
 	    for (int j = 0; j < 3; j++){
@@ -18,7 +18,7 @@ public class Driver {
 	    }
 	} //prints nothing
 	
-	System.out.println(a.countSolutions(0,0)); //prints 0
+	 	System.out.println(a.countSolutions(0,0)); //prints 0
 	
 	
 	
@@ -79,12 +79,12 @@ public class Driver {
 	
 	
 	
-	/*for (int i = 0; i < 5; i++){
+	for (int i = 0; i < 5; i++){
 	    for (int j = 0; j < 5; j++){
 		KnightBoard abc = new KnightBoard(5,5);
 		System.out.println(abc.solve(i,j)); //prints alternating lines of true/false starting with true
 	    }
-	    }*/
+	}
 	KnightBoard c = new KnightBoard(5,5);
 	
 	int totalSol = 0;
