@@ -54,7 +54,7 @@ public class Maze{
 	    if (e>1 || s >1) {
 		throw new IllegalArgumentException();
 	    }
-	    System.out.println(maze);
+	    
 	}   
 	catch (FileNotFoundException e) {
 	    System.out.println("File not found");
@@ -119,17 +119,31 @@ public class Maze{
         All visited spots that are part of the solution are changed to '@'
     */
     private int solve(int row, int col){ //you can add more parameters since this is private
-
+	int[] x = {0,1,0,-1};
+	int[] y = {1,0,-1,0};
         //automatic animation! You are welcome.
         if(animate){
             clearTerminal();
             System.out.println(this);
             wait(20);
         }
-
+	int a = 0;
         //COMPLETE SOLVE
-	
-        return -1; //so it compiles
+	for (int i = 0; i < 4; i++) {
+	    if (maze[row+x[i]][col+y[i]] == ' ') {
+		maze[row][col] = '@';
+		a += 1;
+		return solve(row+x[i], col+y[i]);
+	    }
+	}
+	for (int i = 0; i < 4; i++) {
+	    if (maze[row+x[i]][col+y[i]] == '@') {
+		maze[row][col] = '.';
+		a -= 1;
+		return solve(row+x[i], col+y[i]);
+	    }
+	}
+        return a; //so it compiles
     }
     public String toString() {
 	String ans = "";
