@@ -20,24 +20,31 @@ public class Maze{
     public Maze(String filename){
         try {
 	    File text = new File(filename);// can be a path like: "/full/path/to/file.txt"
-	    int x = 0;
 	    
 	    //inf stands for the input file
 	    Scanner inf = new Scanner(text);
 	    int cols = 0;
 	    int rows = 0;
+	    String str = "";
 	    while(inf.hasNextLine()){
 		String line = inf.nextLine();
-		cols = line.length();
+		//cols = line.length();
 		rows += 1;
+		str += line;
 	    }
+	    cols = (str.length() / rows);
 	    maze = new char[rows][cols];
-	    while (inf.hasNextLine()) {
-		String line = inf.nextLine();
-		for (int i = 0; i < line.length(); i++) {
-		    maze[x][i] = line.charAt(i);
+	    int x = 0;
+	    int y = 0;
+	    for (int i = 0; i < str.length(); i++) {
+	        if (y != cols) {
+		    maze[x][y] = str.charAt(i);
+		    y+=1;
 		}
-		x+=1;
+		else {
+		    x += 1;
+		    y = 0;
+		}
 	    }
 	    int e = 0;
 	    int s = 0;
@@ -54,6 +61,7 @@ public class Maze{
 	    if (e>1 || s >1) {
 		throw new IllegalArgumentException();
 	    }
+	    //System.out.println(maze);
 	    
 	}   
 	catch (FileNotFoundException e) {
@@ -128,28 +136,34 @@ public class Maze{
             wait(20);
         }
 	int a = 0;
-        //COMPLETE SOLVE
-	for (int i = 0; i < 4; i++) {
-	    if (maze[row+x[i]][col+y[i]] == ' ') {
-		maze[row][col] = '@';
-		a += 1;
-		return solve(row+x[i], col+y[i]);
+	return -1;
+	/*for (int i = 0; i < 4; i++) {
+	    if (row+x[i] < maze.length && row+x[i] >= 0 &&
+		col+y[i] < maze[0].length && col+y[i] >= 0) {
+		if (maze[row+x[i]][col+y[i]] == ' ') {
+		    maze[row][col] = '@';
+		    a += 1;
+		    return solve(row+x[i], col+y[i]);
+		}
 	    }
 	}
-	for (int i = 0; i < 4; i++) {
-	    if (maze[row+x[i]][col+y[i]] == '@') {
-		maze[row][col] = '.';
-		a -= 1;
-		return solve(row+x[i], col+y[i]);
+	/*for (int i = 0; i < 4; i++) {
+	    if (row+x[i] < maze.length && row+x[i] >= 0 &&
+		col+y[i] < maze[0].length && col+y[i] >= 0) {
+		if (maze[row+x[i]][col+y[i]] == '@') {
+		    maze[row][col] = '.';
+		    a -= 1;
+		    return solve(row+x[i], col+y[i]);
+		}
 	    }
-	}
-        return a; //so it compiles
+	    }*/
+        //return a;
     }
     public String toString() {
 	String ans = "";
 	for (int i = 0; i < maze.length; i++) {
 	    for (int x = 0; x < maze[0].length; x++) {
-		ans +=  "" + maze[i][x];
+		ans = ans + " " +  maze[i][x];
 	    }
 	    ans += "\n";
 	}
