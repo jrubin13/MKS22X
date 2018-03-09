@@ -29,15 +29,17 @@ public class Maze{
 	    String str = "";
 	    while(inf.hasNextLine()){
 		String line = inf.nextLine();
+		if (rows != 0) {
+		    str+= "\n";
+		}
 		//cols = line.length();
 		rows += 1;
 		str += line;
-		str+= "\n";
 	    }
-	    System.out.println(str);
-	    System.out.println(str.length());
-	    System.out.println(rows);
-	    cols = ((str.length()-rows) / rows);
+	    //System.out.println(str);
+	    //System.out.println(str.length());
+	    //System.out.println(rows);
+	    cols = ((str.length()-rows+1) / rows);
 	    maze = new char[rows][cols];
 	    int x = 0;
 	    int y = 0;
@@ -107,7 +109,6 @@ public class Maze{
 	for (int i = 0; i < maze.length; i++) {
 	    for (int x = 0; x < maze[0].length; x++) {
 		if (maze[i][x] == 'S') {
-		    maze[i][x] = '.';
 		    Srow = i;
 		    Scol = x;
 		}
@@ -137,24 +138,33 @@ public class Maze{
         if(animate){
             clearTerminal();
             System.out.println(this);
-            wait(20);
+            wait(100);
         }
+	int work = 0;
 	int a = 0;
 	for (int i = 0; i < 4; i++) {
+	    if (maze[row+x[i]][col+y[i]] == 'E') {
+		a += 1;
+		maze[row][col] = '@';
+		return a;
+	    }
 	    if (row+x[i] == ' ' && col+y[i] == ' ') {
 		maze[row][col] = '@';
 		a += 1;
+		work += 1;
 		return solve(row+x[i], col+y[i]);
 	    }
 	}
-	for (int i = 0; i < 4; i++) {
-	    if (maze[row+x[i]][col+y[i]] == '@') {
-		maze[row][col] = '.';
-		a -= 1;
-		return solve(row+x[i], col+y[i]);
+	if (work == 0) {
+	    for (int i = 0; i < 4; i++) {
+		if (maze[row+x[i]][col+y[i]] == '@') {
+		    maze[row][col] = '.';
+		    a -= 1;
+		    return solve(row+x[i], col+y[i]);
+		}
 	    }
 	}
-        return a;
+        return -1;
     }
     public String toString() {
 	String ans = "";
@@ -162,7 +172,7 @@ public class Maze{
 	    for (int x = 0; x < maze[0].length; x++) {
 		ans = ans + maze[i][x];
 	    }
-	    //ans += "\n";
+	    ans += "\n";
 	}
 	return ans;
     }
