@@ -59,7 +59,7 @@ public class Maze{
 	    for (int r = 0; r < maze.length; r++) {
 		for (int c = 0; c < maze[0].length; c++) {
 		    if (maze[r][c] == 'E') {
-		    e += 1;
+			e += 1;
 		    }
 		    if (maze[r][c] == 'S') {
 			s += 1;
@@ -144,9 +144,9 @@ public class Maze{
 	for (int i = 0; i < 4; i++) {
 	    if (maze[row+x[i]][col+y[i]] == 'E') {
 		maze[row][col] = '@';
-		return total;
+		return total+1;
 	    }
-	    if (row+x[i] == ' ' && col+y[i] == ' ') {
+	    if (maze[row+x[i]][col+y[i]] == ' ') {
 		maze[row][col] = '@';
 		work += 1;
 		return solve(row+x[i], col+y[i], total+1);
@@ -172,5 +172,4 @@ public class Maze{
 	}
 	return ans;
     }
-
 }
