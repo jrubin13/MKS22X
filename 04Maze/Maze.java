@@ -21,7 +21,7 @@ public class Maze{
     public Maze(String filename){
 	try {
 	    File text = new File(filename);// can be a path like: "/full/path/to/file.txt"
-	
+	    
 	    //inf stands for the input file
 	    Scanner inf = new Scanner(text);
 	    int cols = 0;
@@ -59,7 +59,7 @@ public class Maze{
 	    for (int r = 0; r < maze.length; r++) {
 		for (int c = 0; c < maze[0].length; c++) {
 		    if (maze[r][c] == 'E') {
-			e += 1;
+		    e += 1;
 		    }
 		    if (maze[r][c] == 'S') {
 			s += 1;
@@ -72,21 +72,21 @@ public class Maze{
 	    //System.out.println(maze);
 	}
 	catch (FileNotFoundException e) {
-
 	}
     }
+    
     private void wait(int millis){
-         try {
-             Thread.sleep(millis);
-         }
-         catch (InterruptedException e) {
-         }
-     }
+	try {
+	    Thread.sleep(millis);
+	}
+	catch (InterruptedException e) {
+	}
+    }
 
     public void setAnimate(boolean b){
         animate = b;
     }
-
+    
     public void clearTerminal(){
         //erase terminal, go to top left of screen.
         System.out.println("\033[2J\033[1;1H");
@@ -114,7 +114,7 @@ public class Maze{
 		}
 	    }
 	}
-	return solve(Srow, Scol);
+	return solve(Srow, Scol, 0);
     }
 
     /*
@@ -131,7 +131,7 @@ public class Maze{
             Note: This is not required based on the algorithm, it is just nice visually to see.
         All visited spots that are part of the solution are changed to '@'
     */
-    private int solve(int row, int col){ //you can add more parameters since this is private
+    private int solve(int row, int col, int total){ //you can add more parameters since this is private
 	int[] x = {0,1,0,-1};
 	int[] y = {1,0,-1,0};
         //automatic animation! You are welcome.
@@ -141,26 +141,22 @@ public class Maze{
             wait(100);
         }
 	int work = 0;
-	int a = 0;
 	for (int i = 0; i < 4; i++) {
 	    if (maze[row+x[i]][col+y[i]] == 'E') {
-		a += 1;
 		maze[row][col] = '@';
-		return a;
+		return total;
 	    }
 	    if (row+x[i] == ' ' && col+y[i] == ' ') {
 		maze[row][col] = '@';
-		a += 1;
 		work += 1;
-		return solve(row+x[i], col+y[i]);
+		return solve(row+x[i], col+y[i], total+1);
 	    }
 	}
 	if (work == 0) {
 	    for (int i = 0; i < 4; i++) {
 		if (maze[row+x[i]][col+y[i]] == '@') {
 		    maze[row][col] = '.';
-		    a -= 1;
-		    return solve(row+x[i], col+y[i]);
+		    return solve(row+x[i], col+y[i], total-1);
 		}
 	    }
 	}
