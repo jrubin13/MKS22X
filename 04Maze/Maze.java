@@ -1,5 +1,6 @@
 import java.util.*;
 import java.io.*;
+import java.util.Scanner;
 public class Maze{
 
     private char[][]maze;
@@ -18,9 +19,9 @@ public class Maze{
       3. When the file is not found OR the file is invalid (not exactly 1 E and 1 S) then: print a meaningful error and exit the program.
     */
     public Maze(String filename){
-        try {
+	try {
 	    File text = new File(filename);// can be a path like: "/full/path/to/file.txt"
-	    
+	
 	    //inf stands for the input file
 	    Scanner inf = new Scanner(text);
 	    int cols = 0;
@@ -31,19 +32,24 @@ public class Maze{
 		//cols = line.length();
 		rows += 1;
 		str += line;
+		str+= "\n";
 	    }
-	    cols = (str.length() / rows);
+	    System.out.println(str);
+	    System.out.println(str.length());
+	    System.out.println(rows);
+	    cols = ((str.length()-rows) / rows);
 	    maze = new char[rows][cols];
 	    int x = 0;
 	    int y = 0;
 	    for (int i = 0; i < str.length(); i++) {
-	        if (y != cols) {
+		if (y != cols) {
 		    maze[x][y] = str.charAt(i);
 		    y+=1;
 		}
 		else {
 		    x += 1;
 		    y = 0;
+		    maze[x][y] = str.charAt(i);
 		}
 	    }
 	    int e = 0;
@@ -62,11 +68,9 @@ public class Maze{
 		throw new IllegalArgumentException();
 	    }
 	    //System.out.println(maze);
-	    
-	}   
+	}
 	catch (FileNotFoundException e) {
-	    System.out.println("File not found");
-	    //System.out(0);
+
 	}
     }
     private void wait(int millis){
@@ -136,36 +140,29 @@ public class Maze{
             wait(20);
         }
 	int a = 0;
-	return -1;
-	/*for (int i = 0; i < 4; i++) {
-	    if (row+x[i] < maze.length && row+x[i] >= 0 &&
-		col+y[i] < maze[0].length && col+y[i] >= 0) {
-		if (maze[row+x[i]][col+y[i]] == ' ') {
-		    maze[row][col] = '@';
-		    a += 1;
-		    return solve(row+x[i], col+y[i]);
-		}
+	for (int i = 0; i < 4; i++) {
+	    if (row+x[i] == ' ' && col+y[i] == ' ') {
+		maze[row][col] = '@';
+		a += 1;
+		return solve(row+x[i], col+y[i]);
 	    }
 	}
-	/*for (int i = 0; i < 4; i++) {
-	    if (row+x[i] < maze.length && row+x[i] >= 0 &&
-		col+y[i] < maze[0].length && col+y[i] >= 0) {
-		if (maze[row+x[i]][col+y[i]] == '@') {
-		    maze[row][col] = '.';
-		    a -= 1;
-		    return solve(row+x[i], col+y[i]);
-		}
+	for (int i = 0; i < 4; i++) {
+	    if (maze[row+x[i]][col+y[i]] == '@') {
+		maze[row][col] = '.';
+		a -= 1;
+		return solve(row+x[i], col+y[i]);
 	    }
-	    }*/
-        //return a;
+	}
+        return a;
     }
     public String toString() {
 	String ans = "";
 	for (int i = 0; i < maze.length; i++) {
 	    for (int x = 0; x < maze[0].length; x++) {
-		ans = ans + " " +  maze[i][x];
+		ans = ans + maze[i][x];
 	    }
-	    ans += "\n";
+	    //ans += "\n";
 	}
 	return ans;
     }
