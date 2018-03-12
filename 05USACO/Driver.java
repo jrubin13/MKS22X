@@ -14,6 +14,7 @@ public class Driver{
 	    System.out.println("Answer: " + ans);
 	    System.out.println("Correct? " + (ans == ansU));
 	}
+    }
 
 
 	/*for (int i = 1; i < 11; i ++){

@@ -7,6 +7,10 @@ public class USACO {
 	    int col = 0;
 	    int elevation = 0;
 	    int numInstructions = 0;
+	    String instruction = "";
+	    int irow = 0;
+	    int icol = 0;
+	    int idepth = 0;
 	    File text = new File(filename);// can be a path like: "/full/path/to/file.txt"
 	    //inf stands for the input file
 	    Scanner inf = new Scanner(text);
@@ -25,7 +29,61 @@ public class USACO {
 	    //System.out.println(elevation);
 	    //System.out.println(numInstructions);
 	    //System.out.println(map);
-	    return 2;
+	    for (int q = 0; q < numInstructions; q++) {
+		instruction = "";
+		irow = 0;
+		icol = 0;
+		idepth = 0;
+	        /*instruction = inf.nextInt() + " ";
+		  instruction += inf.nextInt() + " ";
+		  instruction += inf.nextInt() + " ";
+		  int x = 0;
+		  int i = 0;
+		  while (x < 3) {
+		  if (instruction.charAt(i) != 0) {
+		  if (x = 0) {
+		  
+		  }
+		  }*/
+		irow = inf.nextInt();
+		icol = inf.nextInt();
+		idepth = inf.nextInt();
+		//look for tallest part
+		int tall = 0;
+		for (int i = irow; i <= irow+2; i++) {
+		    for (int x = icol; x <= icol+2; x++) {
+			if (i < row && x < col) {
+			    if (tall < map[i][x]) {
+				tall = map[i][x];
+			    }
+			}
+		    }
+		}
+		//subtract the depth
+		for (int j = irow; j <= irow+2; j++) {
+		    for (int k = icol; k <= icol+2; k++) {
+			if (j < row && k < col) {
+			    if ((tall - idepth) < map[j][k]) {
+				map[j][k] = tall - idepth;
+			    }
+			}
+		    }
+		}
+	    }
+            int total = 0;
+	    //subtract elevation, add it to total
+	    for (int i = 0; i < row; i++) {
+		for (int x = 0; x < col; x++) {
+		    if (map[i][x] - elevation < 0) {
+			map[i][x] = 0;
+		    }
+		    else {
+			map[i][x] = map[i][x] - elevation;
+			total += map[i][x];
+		    }
+		}
+	    }
+	    return total * 72 * 72;
 	}
 	catch (FileNotFoundException e) {
 	    return 0;
@@ -34,22 +92,14 @@ public class USACO {
     public static int silver(String filename) {
 	return 0;
     }
-    public String toString() {
+    /*public String toString() {
 	String ans = "";
-	for (int i = 0; i < rows; i++) {
-	    for (int z = 0; z < cols; z++) {
-		if (board[i][z] == 0) {
-		    ans += " _ ";
-		}
-		else if (board[i][z] >= 10) {
-		    ans = ans + board[i][z] + " ";
-		}
-		else {
-		    ans = ans + " " + board[i][z] + " ";
-		}
+	for (int i = 0; i < row; i++) {
+	    for (int x = 0; x < col; x++) {
+		ans = ans + map[i][x];
 	    }
 	    ans += "\n";
 	}
 	return ans;
-    }
+	}*/
 }
