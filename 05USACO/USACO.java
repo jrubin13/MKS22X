@@ -11,6 +11,8 @@ public class USACO {
 	    int irow = 0;
 	    int icol = 0;
 	    int idepth = 0;
+	    int tall = 0;
+	    int total = 0;
 	    File text = new File(filename);// can be a path like: "/full/path/to/file.txt"
 	    //inf stands for the input file
 	    Scanner inf = new Scanner(text);
@@ -45,11 +47,11 @@ public class USACO {
 		  
 		  }
 		  }*/
-		irow = inf.nextInt();
-		icol = inf.nextInt();
+		irow = inf.nextInt()-1;
+		icol = inf.nextInt()-1;
 		idepth = inf.nextInt();
 		//look for tallest part
-		int tall = 0;
+		tall = 0;
 		for (int i = irow; i <= irow+2; i++) {
 		    for (int x = icol; x <= icol+2; x++) {
 			if (i < row && x < col) {
@@ -70,19 +72,20 @@ public class USACO {
 		    }
 		}
 	    }
-            int total = 0;
+            total = 0;
 	    //subtract elevation, add it to total
 	    for (int i = 0; i < row; i++) {
 		for (int x = 0; x < col; x++) {
-		    if (map[i][x] - elevation < 0) {
+		    if (elevation - map[i][x] < 0) {
 			map[i][x] = 0;
 		    }
 		    else {
-			map[i][x] = map[i][x] - elevation;
+			map[i][x] = elevation - map[i][x];
 			total += map[i][x];
 		    }
 		}
 	    }
+	    
 	    return total * 72 * 72;
 	}
 	catch (FileNotFoundException e) {
