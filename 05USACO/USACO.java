@@ -93,16 +93,39 @@ public class USACO {
 	}
     }
     public static int silver(String filename) {
-	return 0;
-    }
-    /*public String toString() {
-	String ans = "";
-	for (int i = 0; i < row; i++) {
-	    for (int x = 0; x < col; x++) {
-		ans = ans + map[i][x];
+	try {
+	    int rows = 0;
+	    int cols = 0;
+	    int time = 0;
+	    int startx = 0;
+	    int starty = 0;
+	    int endx = 0;
+	    int endy = 0;
+	    char[][] map;
+	    File text = new File(filename);// can be a path like: "/full/path/to/file.txt"
+	    //inf stands for the input file
+	    Scanner inf = new Scanner(text);
+	    rows = inf.nextInt();
+	    cols = inf.nextInt();
+	    time = inf.nextInt();
+	    map = new char[rows][cols];
+	    String line = "";
+	    int count = 0;
+	    for (int i = 0; i < rows; i++) {
+		line = inf.nextLine();
+		for (int x = 0; x < line.length(); x++) {
+		    map[count][x] = line.charAt(x);
+		}
+		count+=1;
 	    }
-	    ans += "\n";
+	    startx = inf.nextInt()-1;
+	    starty = inf.nextInt()-1;
+	    endx = inf.nextInt()-1;
+	    endy = inf.nextInt()-1;
+	    return 0;
 	}
-	return ans;
-	}*/
+	catch  (FileNotFoundException e){
+	    return 0;
+	}
+    }
 }

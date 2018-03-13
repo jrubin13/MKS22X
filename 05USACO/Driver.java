@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 
 public class Driver{
-
+    
     public static void main(String[] args){
 	for (int i = 1; i < 11; i ++){
 	    String file = "makelake/makelake." + i; // Remove the "makelake/" if the test files are in the same directory
@@ -14,10 +14,8 @@ public class Driver{
 	    System.out.println("Answer: " + ans);
 	    System.out.println("Correct? " + (ans == ansU));
 	}
-    }
-
-
-	/*for (int i = 1; i < 11; i ++){
+    
+	for (int i = 1; i < 11; i ++){
 	    String file = "ctravel/ctravel." + i; // Remove the "ctravel/" if the test files are in the same directory
 	    int ans = getAnswer(file + ".out");
 	    
@@ -27,9 +25,9 @@ public class Driver{
 	    System.out.println("Answer: " + ans);
 	    System.out.println("Correct? " + (ans == ansU));
 	}
-	//System.out.println(USACO.silver("ctravel/ctravel.1.in"));
-	}*/
-
+    }
+    //System.out.println(USACO.silver("ctravel/ctravel.1.in"));
+    
     public static int getAnswer(String filename){
 	try{
 	    File f = new File(filename);
@@ -43,5 +41,4 @@ public class Driver{
 	}
 	return 0;
     }
- 
 }
