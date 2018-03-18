@@ -185,11 +185,11 @@ public class USACO {
 		    }
 		}
 	    }
-	    if (time % 2 == 0) {
-		return before[endx][endy];
+	    if (time % 2 == 1) {
+		return after[endx][endy];
 	    }
 	    else {
-		return after[endx][endy];
+		return before[endx][endy];
 	    }
 	    
 	}
