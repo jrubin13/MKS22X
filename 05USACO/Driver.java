@@ -14,6 +14,9 @@ public class Driver{
 	    System.out.println("Answer: " + ans);
 	    System.out.println("Correct? " + (ans == ansU));
 	}
+	System.out.println("\n");
+	System.out.println("\n");
+	System.out.println("\n");
     
 	for (int i = 1; i < 11; i ++){
 	    String file = "ctravel/ctravel." + i; // Remove the "ctravel/" if the test files are in the same directory

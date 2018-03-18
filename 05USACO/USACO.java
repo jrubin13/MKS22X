@@ -102,27 +102,96 @@ public class USACO {
 	    int endx = 0;
 	    int endy = 0;
 	    char[][] map;
+	    int[][] before;
+	    int[][] after;
 	    File text = new File(filename);// can be a path like: "/full/path/to/file.txt"
 	    //inf stands for the input file
 	    Scanner inf = new Scanner(text);
 	    rows = inf.nextInt();
 	    cols = inf.nextInt();
 	    time = inf.nextInt();
+	    inf.nextLine();
 	    map = new char[rows][cols];
+	    before = new int[rows][cols];
+	    after = new int[rows][cols];
 	    String line = "";
 	    int count = 0;
 	    for (int i = 0; i < rows; i++) {
 		line = inf.nextLine();
 		for (int x = 0; x < line.length(); x++) {
 		    map[count][x] = line.charAt(x);
+		    if (map[count][x] == '*') {
+			before[count][x] = -1;
+			after[count][x] = -1;
+		    }
+		    else {
+			before[count][x] = 0;
+			after[count][x] = 0;
+		    }
 		}
 		count+=1;
 	    }
 	    startx = inf.nextInt()-1;
 	    starty = inf.nextInt()-1;
+	    before[startx][starty] = 1;
+	    after[startx][starty] = 1;
 	    endx = inf.nextInt()-1;
 	    endy = inf.nextInt()-1;
-	    return 0;
+	    int[] x = {-1,0,1,0};
+	    int[] y = {0,1,0,-1};
+	    int total = 0;
+	    for (int i = 0; i < time; i++) {
+		if (i % 2 == 1) {
+		    for (int r = 0; r < before.length; r++) {
+			for (int c = 0; c < before[0].length; c++) {
+			    total = 0;
+			    if (after[r][c] > 0) {
+				before[r][c] = 0;
+			    }
+			    else if (after[r][c] == 0) {
+				for (int around = 0; around < 4; around++) {
+				    if (r+x[around] >= 0 && r+x[around] < map.length &&
+					c+y[around] >= 0 && c+y[around] < map[0].length) {
+					if (map[r+x[around]][c+y[around]] != '*') {
+					    total += after[r+x[around]][c+y[around]];
+					}
+				    }
+				}
+				before[r][c] = total;
+			    }
+			}
+		    }
+		}		    
+		    //check after, change before
+		else {
+		    for (int r = 0; r < before.length; r++) {
+			for (int c = 0; c < before[0].length; c++) {
+			    total = 0;
+			    if (before[r][c] > 0) {
+				after[r][c] = 0;
+			    }
+			    else if (before[r][c] == 0) {
+				for (int around = 0; around < 4; around++) {
+				    if (r+x[around] >= 0 && r+x[around] < before.length &&
+					c+y[around] >= 0 && c+y[around] < before[0].length) {
+					if (map[r+x[around]][c+y[around]] != '*') {
+					    total += before[r+x[around]][c+y[around]];
+					}
+				    }
+				}
+				after[r][c] = total;
+			    }
+			}
+		    }
+		}
+	    }
+	    if (time % 2 == 0) {
+		return before[endx][endy];
+	    }
+	    else {
+		return after[endx][endy];
+	    }
+	    
 	}
 	catch  (FileNotFoundException e){
 	    return 0;
