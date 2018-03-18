@@ -1,8 +1,8 @@
 import java.util.*; //random, scanner, arraylist
 import java.io.*; //file, filenotfoundexception
 public class Quick {
-    public int quickselect(int[] data, int k) {
-	if (k < 1 || k >= data.length) {
+    public static int quickselect(int[] data, int k) {
+	if (k < 1 || k > data.length) {
 	    throw new ArrayIndexOutOfBoundsException();
 	}
 	int start = 0;
@@ -22,26 +22,20 @@ public class Quick {
 	}
 	return data[i];
     }
-    public int partition (int [] data, int start, int end) {
+    public static int partition (int [] data, int start, int end) {
 	if (start < 0 || start >= data.length || end < 0 || end >= data.length) {
 	    throw new ArrayIndexOutOfBoundsException();
 	}
-	if (start - end == 1) {
-	    return end+1;
-	}
-	if (end - start == 1) {
-	    return start+1;
-	}
         Random rand = new Random();
-	int pindex = rand.nextInt(end - start);
+	int pindex = rand.nextInt(end - start + 1);
 	System.out.println("value = " + data[pindex]);
 	//System.out.println(Arrays.toString(data));
 	int large = end;
 	int small = start;
 	int i = start+1;
-	int j = end;
-	swap(data, pindex, start);
-	//System.out.println(Arrays.toString(data) + "\n");
+	int j = large;
+	swap(data, pindex, small);
+	System.out.println(Arrays.toString(data) + "\n");
 	while (i <= j) {
 	    if (data[i] >= data[start]) {
 		swap(data, i, j);
@@ -52,11 +46,11 @@ public class Quick {
 	    }
 	    //System.out.println(Arrays.toString(data));
 	}
-	swap(data, start, j);
+	swap(data, small, j);
 	System.out.println(Arrays.toString(data));
 	return j;
     }
-    public void swap (int[] data, int a, int b) {
+    private static void swap (int[] data, int a, int b) {
 	int c = data[a];
 	data[a] = data[b];
 	data[b] = c;
