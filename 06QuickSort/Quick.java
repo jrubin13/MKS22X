@@ -1,6 +1,11 @@
 import java.util.*; //random, scanner, arraylist
 import java.io.*; //file, filenotfoundexception
 public class Quick {
+    public static void quicksort(int[] data) {
+	for (int i = 1; i <= data.length; i++) {
+	    quickselect(data, i);
+	}
+    }
     public static int quickselect(int[] data, int k) {
 	if (k < 1 || k > data.length) {
 	    throw new ArrayIndexOutOfBoundsException();
@@ -27,7 +32,7 @@ public class Quick {
 	    throw new ArrayIndexOutOfBoundsException();
 	}
         Random rand = new Random();
-	int pindex = rand.nextInt(end - start + 1);
+	int pindex = rand.nextInt(end - start+1);
 	System.out.println("value = " + data[pindex]);
 	//System.out.println(Arrays.toString(data));
 	int large = end;

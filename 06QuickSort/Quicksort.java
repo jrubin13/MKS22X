@@ -31,9 +31,4 @@ public class Quicksort {
 	data[a] = data[b];
 	data[b] = c;
     }
-    public static void main(String[] args) {
-	int[] test = {1,5,3,7,8,0,3};
-	System.out.println(partition(test,0, 6));
-        System.out.println(Arrays.toString(test));
-    }
 }
