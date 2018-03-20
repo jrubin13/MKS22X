@@ -2,17 +2,17 @@ import java.util.*; //random, scanner, arraylist
 import java.io.*; //file, filenotfoundexception
 public class Quick {
     public static void quicksort(int[] data) {
-	for (int i = 1; i <= data.length; i++) {
+	for (int i = 0; i < data.length; i++) {
 	    quickselect(data, i);
+	    System.out.println(Arrays.toString(data));
 	}
     }
     public static int quickselect(int[] data, int k) {
-	if (k < 1 || k > data.length) {
+	if (k < 0 || k > data.length) {
 	    throw new ArrayIndexOutOfBoundsException();
 	}
 	int start = 0;
 	int end = data.length-1;
-	k -= 1;
 	int i = partition(data, start, end);
         while (i != k) {
 	    if (i > k) {
@@ -33,14 +33,14 @@ public class Quick {
 	}
         Random rand = new Random();
 	int pindex = rand.nextInt(end - start+1);
-	System.out.println("value = " + data[pindex]);
+	//System.out.println("value = " + data[pindex]);
 	//System.out.println(Arrays.toString(data));
 	int large = end;
 	int small = start;
 	int i = start+1;
 	int j = large;
 	swap(data, pindex, small);
-	System.out.println(Arrays.toString(data) + "\n");
+	//System.out.println(Arrays.toString(data) + "\n");
 	while (i <= j) {
 	    if (data[i] >= data[start]) {
 		swap(data, i, j);
@@ -52,7 +52,7 @@ public class Quick {
 	    //System.out.println(Arrays.toString(data));
 	}
 	swap(data, small, j);
-	System.out.println(Arrays.toString(data));
+	//System.out.println(Arrays.toString(data));
 	return j;
     }
     private static void swap (int[] data, int a, int b) {
