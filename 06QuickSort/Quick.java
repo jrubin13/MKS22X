@@ -2,11 +2,23 @@ import java.util.*; //random, scanner, arraylist
 import java.io.*; //file, filenotfoundexception
 public class Quick {
     public static void quicksort(int[] data) {
-	for (int i = 0; i < data.length; i++) {
-	    quickselect(data, i);
+        /*int i = 0;
+	while (i < data.length) {
+	    int j = quickselect(data, i);
+	    if (j == i) {
+		i+=1;
+	    }
 	    System.out.println(Arrays.toString(data));
+	    }*/
+	quicksortH(data, 0, data.length);
+    }
+    public static void quicksortH(int[] data, int start, int end) {
+	while (start < end) {
+	    quickselect(data, start);
+	    start +=1;
 	}
     }
+    
     public static int quickselect(int[] data, int k) {
 	if (k < 0 || k > data.length) {
 	    throw new ArrayIndexOutOfBoundsException();
@@ -14,19 +26,24 @@ public class Quick {
 	int start = 0;
 	int end = data.length-1;
 	int i = partition(data, start, end);
-        while (i != k) {
+	if (end - start == 2) {
+	    return start+1;
+	}
+        while (start <= end) {
 	    if (i > k) {
+		start = 0;
+		end = i-1;
 		i = partition(data, 0, i-1);
 	    }
-	    else if (i < k) {
-		i = partition(data, i, data.length-1);
-	    }
 	    else {
-		return data[i];
+		start = i;
+		end = data.length-1;
+		i = partition(data, i, data.length-1);
 	    }
 	}
 	return data[i];
     }
+    
     public static int partition (int [] data, int start, int end) {
 	if (start < 0 || start >= data.length || end < 0 || end >= data.length) {
 	    throw new ArrayIndexOutOfBoundsException();
