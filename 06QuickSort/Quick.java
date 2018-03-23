@@ -43,11 +43,21 @@ public class Quick {
 	}
 	return data[i];
     }
+
+    public static int quickselectH(int[] data, int k, int start, int end) {
+	int i = partition(data, start, end);
+	if (i < k) {
+	    return quickselectH(data, k, start, i-1);
+	}
+	if (i > k) {
+	    return quickselectH(data, k, i, end);
+	}
+	else {
+	    return data[k];
+	}
+    }
     
     public static int partition (int [] data, int start, int end) {
-	if (start < 0 || start >= data.length || end < 0 || end >= data.length) {
-	    throw new ArrayIndexOutOfBoundsException();
-	}
         Random rand = new Random();
 	int pindex = rand.nextInt(end - start+1);
 	//System.out.println("value = " + data[pindex]);
