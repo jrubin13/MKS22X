@@ -8,21 +8,38 @@ public class Merge {
 	}
 	msort(data, temp, 0, data.length/2, data.length);
     }
+    private static void swap(int[]ary, int a, int b){
+        int c =ary[a];                                                          
+        ary[a] = ary[b];                                                        
+        ary[b] = c;                                                             
+    }
+    public static void insertion(int[] data, int start, int end) {
+	for (int i = start+1; i < end; i++) {
+	    for (int x = i; x > start; x--) {
+		if (data[x] < data[x-1]){
+		    swap(data, x, x-1);
+		}
+	    }
+	}
+    }
     private static void msort(int[] data, int[] temp, int lo, int mid, int hi) {
 	if (lo >= hi) {
 	    return;
 	}
-	if (hi - lo <= 1) {
-	    return;
+	if (hi - lo <= 10) {
+	    insertion(data, lo, hi);
+	    //merge(data, temp, lo, mid, hi);
 	}
 	//for (int i = lo; i < hi; i++) {
 	//    temp[i] = data[i];
 	//}
 	//mid = lo+hi;
 	//mid = mid/2;
-	msort(temp, data, lo, ((lo+mid)/2), mid);
-	msort(temp, data, mid, (hi+mid)/2, hi);
-	merge(data, temp, lo, mid, hi);
+	else {
+	    msort(temp, data, lo, ((lo+mid)/2), mid);
+	    msort(temp, data, mid, (hi+mid)/2, hi);
+	    merge(data, temp, lo, mid, hi);
+	}
     }
 
     private static void merge (int[] data, int[] temp, int lo, int mid, int hi) {
