@@ -29,7 +29,7 @@ public class Quick {
 	if (end - start == 2) {
 	    return start+1;
 	}
-        while (start <= end) {
+        while (end - start > 2) {
 	    if (i > k) {
 		start = 0;
 		end = i-1;
