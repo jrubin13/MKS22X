@@ -3,15 +3,18 @@ public class MyLinkedList {
     Node end;
     int size;
     public MyLinkedList() {
-	start = 0;
-	end = 0;
+        start = Node.getNode(0);
+	end = Node.getNode(0);
 	size = 0;
+    }
+    private Node getNode(int index) {
+	
     }
     
 }
 
 private class Node {
-    private int data;
+    private Integer data;
     private Node next;
     private Node prev;
     public Node getNext() {
@@ -26,10 +29,10 @@ private class Node {
     private void setPrev(Node new) {
         prev = new;
     }
-    public int getValue() {
+    public Integer getValue() {
 	return data;
     }
-    private void setValue(int new) {
+    private void setValue(Integer new) {
 	data = new;
     }
     public String toString() {
