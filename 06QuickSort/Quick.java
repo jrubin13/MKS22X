@@ -2,89 +2,78 @@ import java.util.*; //random, scanner, arraylist
 import java.io.*; //file, filenotfoundexception
 public class Quick {
     public static void quicksort(int[] data) {
-        /*int i = 0;
-	while (i < data.length) {
-	    int j = quickselect(data, i);
-	    if (j == i) {
-		i+=1;
-	    }
-	    System.out.println(Arrays.toString(data));
-	    }*/
-	quicksortH(data, 0, data.length);
+	quicksortH(data, 0, data.length-1, 1);
     }
-    public static void quicksortH(int[] data, int start, int end) {
-	while (start < end) {
-	    quickselect(data, start);
-	    start +=1;
+    public static void quicksortH(int[] data, int start, int end, int i) {
+        if (start < end) {
+	    int[] value = partition(data, start, end, i);
+	    //System.out.println(Arrays.toString(data));
+	    quicksortH(data, start, value[0]-1, start+1);
+	    quicksortH(data, value[1]+1, end, value[1]+2);
 	}
     }
     
     public static int quickselect(int[] data, int k) {
-	if (k < 0 || k > data.length) {
-	    throw new ArrayIndexOutOfBoundsException();
-	}
-	int start = 0;
-	int end = data.length-1;
-	int i = partition(data, start, end);
-	if (end - start == 2) {
-	    return start+1;
-	}
-        while (end - start > 2) {
-	    if (i > k) {
-		start = 0;
-		end = i-1;
-		i = partition(data, 0, i-1);
-	    }
-	    else {
-		start = i;
-		end = data.length-1;
-		i = partition(data, i, data.length-1);
-	    }
-	}
-	return data[i];
+        return quickselectH(data, k, 0, data.length-1);
     }
 
     public static int quickselectH(int[] data, int k, int start, int end) {
-	int i = partition(data, start, end);
-	if (i < k) {
-	    return quickselectH(data, k, start, i-1);
+	int i[];
+	i = partition(data, start, end, start+1);
+	if (i[0] < k-1) {
+	    return quickselectH(data, k, i[1]+1, end);
 	}
-	if (i > k) {
-	    return quickselectH(data, k, i, end);
+	else if (i[0] > k) {
+	    return quickselectH(data, k, start, i[0]-1);
 	}
 	else {
 	    return data[k];
 	}
     }
     
-    public static int partition (int [] data, int start, int end) {
-        Random rand = new Random();
-	int pindex = rand.nextInt(end - start+1);
-	//System.out.println("value = " + data[pindex]);
-	//System.out.println(Arrays.toString(data));
-	int large = end;
+    public static int[] partition (int [] data, int start, int end, int i) {
+        //Random rand = new Random();
+	//System.out.println(end-start+1);              //Random not working correctly
+	//int pindex = rand.nextInt(end - start+1);
+	int pindex = (int)(Math.random() * (end-start) + start);
 	int small = start;
-	int i = start+1;
-	int j = large;
+	int j = end;
 	swap(data, pindex, small);
 	//System.out.println(Arrays.toString(data) + "\n");
 	while (i <= j) {
-	    if (data[i] >= data[start]) {
+	    if (data[i] > data[small]) {
 		swap(data, i, j);
 		j -= 1;
 	    }
-	    else {
+	    else if (data[i] < data[small]) {
+		swap(data, i, small);
 		i += 1;
+		small+=1;
 	    }
-	    //System.out.println(Arrays.toString(data));
+	    else if (data[i] == data[small]){
+		i+=1;
+	    }
 	}
-	swap(data, small, j);
 	//System.out.println(Arrays.toString(data));
-	return j;
+        int lowerBound = small;
+	int upperBound = j;
+	int[] bounds = new int[2];
+	bounds[0] = lowerBound;
+	bounds[1] = upperBound;
+	return bounds;
+	//System.out.println(Arrays.toString(data));
     }
     private static void swap (int[] data, int a, int b) {
 	int c = data[a];
 	data[a] = data[b];
 	data[b] = c;
+    }
+    public static void main(String[] args) {
+	int[] a = {3,2,4,5,1,1,8};
+	for (int i = 0; i < a.length; i++) {
+	    System.out.println(quickselect(a, i));
+	}
+	quicksort(a);
+	System.out.println(Arrays.toString(a));
     }
 }
