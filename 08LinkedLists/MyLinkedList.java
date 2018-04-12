@@ -8,6 +8,9 @@ public class MyLinkedList {
 	end = null;
     }
     private Node getNode(int index) {
+	if (index < 0 || index >= size()) {
+	    throw new IndexOutOfBoundsException();
+	}
 	Node ans = start;
 	for (int i = 0; i < index; i++) {
 	    ans = ans.getNext();
@@ -87,26 +90,40 @@ public class MyLinkedList {
 	if (index < 0 || index > size()) {
 	    throw new IndexOutOfBoundsException();
 	}
-	if (index >= size) {
-	    add(value);
+	if (size == 0) {
+	    Node ans = new Node(null, null, value);
+	    start = ans;
+	    end = ans;
+	    size +=1;
+	    return;
 	}
-	if (index == 0) {
+	if (index >= size) {
+	    Node ans = new Node(null, null, value);
+	    Node a = end;
+	    ans.setPrev(a);
+	    a.setNext(ans);
+	    end = ans;
+	    size += 1;
+	}
+	else if (index == 0) {
 	    Node ans = new Node(null, null, value);
 	    ans.setNext(start);
 	    start.setPrev(ans);
 	    start = ans;
 	    size+=1;
 	}
-	Node ans = new Node(null, null, value);
-	Node storeLo = start;
-	storeLo = getNode(index);
-	Node storeHi = storeLo.getNext();
-	storeLo = storeLo.getPrev();
-	ans.setPrev(storeLo);
-	ans.setNext(storeHi);
-	storeLo.setNext(ans);
-	storeHi.setPrev(ans);
-	size+=1;
+	else {
+	    Node ans = new Node(null, null, value);
+	    Node storeLo = start;
+	    storeLo = getNode(index);
+	    Node storeHi = storeLo;
+	    storeLo = storeLo.getPrev();
+	    ans.setPrev(storeLo);
+	    ans.setNext(storeHi);
+	    storeLo.setNext(ans);
+	    storeHi.setPrev(ans);
+	    size+=1;
+	}
     }
     public boolean remove(Integer value) {
 	Node a = start;
@@ -145,18 +162,24 @@ public class MyLinkedList {
 	    Node before = a.getPrev();
 	    before.setNext(null);
 	    end = before;
+	    size -=1;
+	    return a.getValue();
 	}
-	if (a.getPrev() == null) {
+	else if (a.getPrev() == null) {
 	    Node after = a.getNext();
 	    after.setPrev(null);
 	    start = after;
+	    size-=1;
+	    return a.getValue();
 	}
-        Node before = a.getPrev();
-	Node after = a.getNext();
-	before.setNext(after);
-	after.setPrev(before);
-	size -=1;
-	return a.getValue();
+        else {
+	    Node before = a.getPrev();
+	    Node after = a.getNext();
+	    before.setNext(after);
+	    after.setPrev(before);
+	    size -=1;
+	    return a.getValue();
+	}
     }
     
     private class Node {

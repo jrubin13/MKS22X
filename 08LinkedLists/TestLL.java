@@ -4,10 +4,12 @@ public class TestLL{
 	MyLinkedList nums = new MyLinkedList();
 	LinkedList<Integer> nums2 = new LinkedList<>();
 	
-	for(int i = 0; i < 2000; i++  ){
+	for(int i = 0; i < 20000; i++  ){
 	    int index = (int)(Math.random()*(1 + nums.size()));
 	    nums.add(index,i);
 	    nums2.add(index,i);
+	    //System.out.println(nums);
+	    //System.out.println(nums2);
 	}
 	for(int i = 0; i < nums.size(); i++  ){
 	    if(nums.get(i) != nums2.get(i).intValue()){
