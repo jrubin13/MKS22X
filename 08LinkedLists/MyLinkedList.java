@@ -18,12 +18,10 @@ public class MyLinkedList {
 	String ans = "";
 	Node a = start;
 	ans += "[";
-	int i = 0;
-	while (i < size) {
+	while (a != null) {
 	    ans += a.toString();
 	    ans += ", ";
 	    a = a.getNext();
-	    i++;
 	}
 	if (size > 0) {
 	    ans = ans.substring(0, ans.length()-2);
@@ -72,17 +70,14 @@ public class MyLinkedList {
 	return -1;
     }
     public boolean add(Integer newData) {
-	Node a = end;
 	Node ans = new Node(end, null, newData);
-	if (size > 0) {
-	    a.setNext(ans);
-	    //ans.setPrev(a);
-	    a = a.getNext();
-	}
-	else {
+	if (size == 0) {
 	    start = ans;
 	}
-	end = a;
+	else {
+	    end.setNext(ans);
+	}
+	end = ans;
 	//a.setValue(newData);
 	size+=1;
 	//end = a;
@@ -92,36 +87,51 @@ public class MyLinkedList {
 	if (index < 0 || index > size()) {
 	    throw new IndexOutOfBoundsException();
 	}
-	/*Node a = end;
-	if (index == size) {
+	if (index >= size) {
 	    add(value);
 	}
-	Node n = new Node(null, null, value);
-	n.setPrev(a);
-	a.setNext(n);
-        n.setValue(a.getValue());
-	end = n;
-	a.getPrev();
-	n.getPrev();
-        for (int i = size; i > index; i--) {
-	    n.setValue(a.getValue());
-	    a.getPrev();
-	    n.getPrev();
+	if (index == 0) {
+	    Node ans = new Node(null, null, value);
+	    ans.setNext(start);
+	    start.setPrev(ans);
+	    start = ans;
+	    size+=1;
 	}
-	size+=1;*/
+	Node ans = new Node(null, null, value);
+	Node storeLo = start;
+	storeLo = getNode(index);
+	Node storeHi = storeLo.getNext();
+	storeLo = storeLo.getPrev();
+	ans.setPrev(storeLo);
+	ans.setNext(storeHi);
+	storeLo.setNext(ans);
+	storeHi.setPrev(ans);
+	size+=1;
     }
     public boolean remove(Integer value) {
 	Node a = start;
-	for (int i = 0; i < size; i++) {
+        while (a != null) {
 	    if (a.getValue() == value) {
-		Node next = a.getNext();
-		a = a.getPrev();
-		a.setNext(next);
-		next.setPrev(a);
-		size -= 1;
+		if (a.getNext() != null && a.getPrev() != null) {
+		    Node before = a.getPrev();
+		    Node after = a.getNext();
+		    before.setNext(after);
+		    after.setPrev(before);
+		}
+		if (a.getNext() == null) {
+		    Node before = a.getPrev();
+		    before.setNext(null);
+		    end = before;
+		}
+		if (a.getPrev() == null) {
+		    Node after = a.getNext();
+		    after.setPrev(null);
+		    start = after;
+		}
+		size -=1;
 		return true;
 	    }
-	    a.getNext();
+	    a = a.getNext();
 	}
 	return false;
     }
@@ -131,13 +141,22 @@ public class MyLinkedList {
 	}
 	Node a = start;
 	a = getNode(index);
-	Integer ans = a.getValue();
-	Node next = a.getNext();
-	a = a.getPrev();
-	a.setNext(next);
-	next.setPrev(a);
-	size -= 1;
-	return ans;
+	if (a.getNext() == null) {
+	    Node before = a.getPrev();
+	    before.setNext(null);
+	    end = before;
+	}
+	if (a.getPrev() == null) {
+	    Node after = a.getNext();
+	    after.setPrev(null);
+	    start = after;
+	}
+        Node before = a.getPrev();
+	Node after = a.getNext();
+	before.setNext(after);
+	after.setPrev(before);
+	size -=1;
+	return a.getValue();
     }
     
     private class Node {
@@ -145,9 +164,9 @@ public class MyLinkedList {
 	private Node next;
 	private Node prev;
 	public Node() {
-	    data = 0;
-	    next = null;
 	    prev = null;
+	    next = null;
+	    data = 0;
 	}
 	public Node(Node before, Node after, Integer val) {
 	    prev = before;
@@ -173,7 +192,7 @@ public class MyLinkedList {
 	    data = value;
 	}
 	public String toString() {
-	    return ""+data;
+	    return Integer.toString(data);
 	}
     }
 }
