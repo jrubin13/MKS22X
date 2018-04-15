@@ -1,5 +1,5 @@
 import java.util.Iterator;
-public class MyLinkedListImproved<T extends Comparable<T>> {
+public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable {
 Node start;
     Node end;
     int size;
@@ -180,6 +180,42 @@ Node start;
 	    return a.getValue();
 	}
     }
+    public int max() {
+	if (size == 0) {
+	    return -1;
+	}
+	Node x = start;
+	int count = 0;
+	int ans = 0;
+	Node Nans = start;
+	while (x != null) {
+	    if (x.getValue().compareTo(Nans.getValue()) > 0) {
+		ans = count;
+		Nans = x;
+	    }
+	    count += 1;
+	    x = x.getNext();
+	}
+	return ans;
+    }
+    public int min() {
+	if (size == 0) {
+	    return -1;
+	}
+	Node x = start;
+	int count = 0;
+	int ans = 0;
+	Node Nans = start;
+	while (x != null) {
+	    if (x.getValue().compareTo(Nans.getValue()) < 0) {
+		ans = count;
+		Nans = x;
+	    }
+	    count += 1;
+	    x = x.getNext();
+	}
+	return ans;
+    }
     
     private class Node {
 	private T data;
@@ -228,5 +264,25 @@ Node start;
 	    start = begin;
 	    end = stop;
 	}
+	public T next() {
+	    if (hasNext()) {
+	        return start.getNext().getValue();
+	    }
+	    else {
+	        return end.getValue();
+	    }
+	}
+	public boolean hasNext() {
+	    return start.getNext().getValue() != null;
+	}
+    }
+    public static void main(String[] args) {
+	MyLinkedListImproved<Integer> m = new MyLinkedListImproved<>();
+        m.add(new Integer(0));
+	m.add(new Integer(4));
+	m.add(new Integer(1));
+	System.out.println(m);
+	System.out.println(m.max());
+	System.out.println(m.min());
     }
 }
