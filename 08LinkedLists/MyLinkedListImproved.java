@@ -216,6 +216,19 @@ Node start;
 	}
 	return ans;
     }
+    public void extend(MyLinkedListImproved<T> other) {
+	if (size == 0) {
+	    size = other.size;
+	    start = other.start;
+	    end = other.end;
+	}
+	else {
+	    end.setNext(other.start);
+	    other.start.setPrev(end);
+	    end = other.end;
+	    size += other.size;
+	}
+    }
     
     private class Node {
 	private T data;
@@ -281,6 +294,11 @@ Node start;
         m.add(new Integer(0));
 	m.add(new Integer(4));
 	m.add(new Integer(1));
+	MyLinkedListImproved<Integer> n = new MyLinkedListImproved<>();
+	n.add(new Integer(8));
+	n.add(new Integer(8));
+	m.extend(n);
+	System.out.println(m.size);
 	System.out.println(m);
 	System.out.println(m.max());
 	System.out.println(m.min());
