@@ -1,6 +1,6 @@
 import java.util.Iterator;
 public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable {
-Node start;
+    Node start;
     Node end;
     int size;
     public MyLinkedListImproved() {
@@ -298,9 +298,9 @@ Node start;
 	n.add(new Integer(8));
 	n.add(new Integer(8));
 	m.extend(n);
-	System.out.println(m.size);
+	//System.out.println(m.size);
 	System.out.println(m);
-	System.out.println(m.max());
-	System.out.println(m.min());
+	//System.out.println(m.max());
+	//System.out.println(m.min());
     }
 }
