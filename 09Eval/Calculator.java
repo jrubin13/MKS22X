@@ -1,51 +1,40 @@
 import java.util.*;
 import java.io.*;
 public class Calculator {
-    LinkedList<String> data = new LinkedList<>();
+    LinkedList<Double> data = new LinkedList<>();
     public double eval(String s) {
         String[] data1 = s.split(" ");
+	//System.out.println(Arrays.toString(data1));
 	for (int i = 0 ; i < data1.length; i++) {
-	    /*if (data1[i] != "+" && data1[i] != "-" && data1[i] != "/" && data1[i] != "*" && data1[i] != "%") {
-		Double.parseDouble(data1[i]);
-		}*/
-	    data.add(data1[i]);
-	}
-	//System.out.println(data);
-	double ans = Double.parseDouble(data.get(0));
-	data.pop();
-	double num = 0.0;
-        while (data.size() > 1) {
-	    num = Double.parseDouble(data.get(0));
-	    if (data.get(1).equals("+")) {
-	        ans += num;
-		data.pop();
-		data.pop();
+	    //System.out.println(data1[i]);
+	    if (data1[i].equals("+")) {
+	        data.push(data.pop() + data.pop());
 	    }
-	    else if (data.get(1).equals("-")) {
-		ans -= num;
-		data.pop();
-		data.pop();
+	    else if (data1[i].equals("-")) {
+		double num1 = data.pop();
+		double num2 = data.pop();
+	        data.push(num2 - num1);
 	    }
-	    else if (data.get(1).equals("*")) {
-		ans = ans * num;
-		data.pop();
-		data.pop();
+	    else if (data1[i].equals("*")) {
+	        data.push(data.pop() * data.pop());
 	    }
-	    else if (data.get(1).equals("/")) {
-		ans = ans / num;
-		data.pop();
-		data.pop();
+	    else if (data1[i].equals("/")) {
+	        double num1 = data.pop();
+		double num2 = data.pop();
+	        data.push(num2 / num1);
 	    }
-	    else if (data.get(1).equals("%")) {
-		ans = ans % num;
-		data.pop();
-		data.pop();
+	    else if (data1[i].equals("%")) {
+	        double num1 = data.pop();
+		double num2 = data.pop();
+	        data.push(num2 % num1);
 	    }
 	    else {
-	        data.pop();
+		data.push(Double.parseDouble(data1[i]));
+		//System.out.println(data);
 	    }
+	    //System.out.println(data);
 	}
-	return ans;
+	return data.pop();
     }
     public static void main(String[] args) {
 	Calculator a = new Calculator();
