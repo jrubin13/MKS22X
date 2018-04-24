@@ -1,53 +1,111 @@
 import java.util.*;
-public class MyDeque<T> {
-    public T[] data;
+public class MyDeque<E> {
+    private E[] data;
+    private int size;
+    private int start;
+    private int end;
     @SuppressWarnings("unchecked")
     public MyDeque() {
-	data = new T[10];
+	data = (E[]) new Object[10];
+	size = 0;
+	start = 0;
+	end = 0;
     }
+    @SuppressWarnings("unchecked")
     public MyDeque(int cap) {
 	if (cap >= 0) {
-	    data = new T[cap];
+	    data = (E[]) new Object[cap];
+	    size = 0;
+	    start = 0;
+	    end = 0;
 	}
 	else {
 	    throw new IllegalArgumentException();
 	}
     }
     public int size() {
-	return data.length;
+	return size;
     }
-    public void addFirst(T value) {
+    public void addFirst(E value) {
 	if (value == null) {
 	    throw new NullPointerException();
 	}
+	if (size() == data.length) {
+	    resize();
+	}
+	if (size == 0) {
+	    data[0] = value;
+	    return;
+	}
+	if (start == 0) {
+	    data[size-1] = value;
+	    start = size-1;
+	    return;
+	}
+	data[start-1] = value;
+	start -= 1;
     }
-    public void addLast(T value) {
+    public void addLast(E value) {
 	if (value == null) {
 	    throw new NullPointerException();
 	}
+	if (size() == data.length) {
+	    resize();
+	}
+	if (size == 0) {
+	    data[0] = value;
+	    return;
+	}
+	if (end == size - 1) {
+	    data[0] = value;
+	    end = 0;
+	    return;
+	}
+	data[end+1] = value;
+	end += 1;
     }
-    public T removeFirst() {
+    public E removeFirst() {
 	if (size() == 0) {
 	    throw new NoSuchElementException();
 	}
-	return;
+        E temp = data[start];
+	if (start == size - 1) {
+	    start = 0;
+	    return temp;
+	}
+	start += 1;
+	return temp;
     }
-    public T removeLast() {
+    public E removeLast() {
 	if (size() == 0) {
 	    throw new NoSuchElementException();
 	}
-	return;
+	E temp = data[end];
+	if (end == 0) {
+	    end = size - 1;
+	    return temp;
+	}
+	end -= 1;
+	return temp;
     }
-    public T getFirst() {
+    public E getFirst() {
 	if (size() == 0) {
 	    throw new NoSuchElementException();
 	}
-	return;
+	return data[start];
     }
-    public T getLast() {
+    public E getLast() {
 	if (size() == 0) {
 	    throw new NoSuchElementException();
 	}
-	return;
+	return data[end];
+    }
+    @SuppressWarnings("unchecked")
+    private void resize() {
+	E[] newData = (E[]) new Object[size() * 2];
+	for (int i = 0; i < size(); i++) {
+	    newData[i] = data[i];
+	}
+	data = newData;
     }
 }
