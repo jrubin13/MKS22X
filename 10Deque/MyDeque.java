@@ -35,15 +35,18 @@ public class MyDeque<E> {
 	}
 	if (size == 0) {
 	    data[0] = value;
+	    size += 1;
 	    return;
 	}
 	if (start == 0) {
 	    data[size-1] = value;
 	    start = size-1;
+	    size += 1;
 	    return;
 	}
 	data[start-1] = value;
 	start -= 1;
+	size += 1;
     }
     public void addLast(E value) {
 	if (value == null) {
@@ -54,15 +57,18 @@ public class MyDeque<E> {
 	}
 	if (size == 0) {
 	    data[0] = value;
+	    size += 1;
 	    return;
 	}
 	if (end == size - 1) {
 	    data[0] = value;
 	    end = 0;
+	    size += 1;
 	    return;
 	}
 	data[end+1] = value;
 	end += 1;
+	size += 1;
     }
     public E removeFirst() {
 	if (size() == 0) {
@@ -71,9 +77,11 @@ public class MyDeque<E> {
         E temp = data[start];
 	if (start == size - 1) {
 	    start = 0;
+	    size -= 1;
 	    return temp;
 	}
 	start += 1;
+	size -= 1;
 	return temp;
     }
     public E removeLast() {
@@ -83,9 +91,11 @@ public class MyDeque<E> {
 	E temp = data[end];
 	if (end == 0) {
 	    end = size - 1;
+	    size -= 1;
 	    return temp;
 	}
 	end -= 1;
+	size -= 1;
 	return temp;
     }
     public E getFirst() {
