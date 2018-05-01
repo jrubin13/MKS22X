@@ -1,23 +1,24 @@
-public class MyHeap {
-    String[] data;
+import java.util.*;
+public class MyHeap<T extends Comparable<T>> {
+    private T[] data;
     private boolean max;
     private int size;
     @SuppressWarnings("unchecked")
     public MyHeap() {
-	data = new String[10];
+	data = (T[]) new Comparable[10];
 	size = 0;
 	max = true;
     }
     @SuppressWarnings("unchecked")
     public MyHeap(boolean type) {
-	data = new String[10];
+	data = (T[]) new Comparable[10];
 	size = 0;
         max = type;
     }
     public int size() {
 	return size;
     }
-    public void add(String s) {
+    public void add(T s) {
 	if (size >= data.length) {
 	    resize();
 	}
@@ -37,53 +38,76 @@ public class MyHeap {
 	}
 	size += 1;
     }
-    public String remove() {
+    public T remove() {
 	if (size <= 0) {
-	    return "";
+	    throw new NoSuchElementException();
 	}
-	String ans = data[0];
+        T ans = data[0];
 	data[0] = data[size-1];
-	data[size-1] = null;
 	int i = 0;
+	//System.out.println(Arrays.toString(data));
+	//System.out.println(size());
+	data[size-1] = null;
 	if (max) {
-	    while (2*i+1 < size &&
-		   data[i].compareTo(data[2*i+1]) < 0 ||
-		   data[i].compareTo(data[2*i + 2]) < 0) {
-		if (data[2*i+1].compareTo(data[2*i+2]) > 0) {
+	    while (2*i+2 < size-1) {
+		if (data[i].compareTo(data[2*i+1]) < 0 &&
+		    data[i].compareTo(data[2*i+2]) > 0) {
 		    swap(data, i, 2*i+1);
 		    i = 2*i+1;
 		}
-		else {
+		else if (data[i].compareTo(data[2*i+1]) > 0 &&
+			 data[i].compareTo(data[2*i+2]) < 0) {
 		    swap(data, i, 2*i+2);
 		    i = 2*i+2;
+		}
+		else {
+		    if (data[2*i+1].compareTo(data[2*i+2]) > 0) {
+			swap(data, i, 2*i+1);
+			i = 2*i+1;
+		    }
+		    else {
+			swap(data, i, 2*i+2);
+			i = 2*i+2;
+		    }
 		}
 	    }
 	}
 	else {
-	    while (2*i+1 < size &&
-		   data[i].compareTo(data[2*i+1]) > 0 ||
-		   data[i].compareTo(data[2*i + 2]) > 0) {
-		if (data[2*i+1].compareTo(data[2*i+2]) < 0) {
+	    while (2*i+2 < size-1) {
+		if (data[i].compareTo(data[2*i+1]) > 0 &&
+		    data[i].compareTo(data[2*i+2]) < 0) {
 		    swap(data, i, 2*i+1);
 		    i = 2*i+1;
 		}
-		else {
+		else if (data[i].compareTo(data[2*i+1]) < 0 &&
+			 data[i].compareTo(data[2*i+2]) > 0) {
 		    swap(data, i, 2*i+2);
 		    i = 2*i+2;
 		}
+		else {
+		    if (data[2*i+1].compareTo(data[2*i+2]) < 0) {
+			swap(data, i, 2*i+1);
+			i = 2*i+1;
+		    }
+		    else {
+			swap(data, i, 2*i+2);
+			i = 2*i+2;
+		    }
+		}
 	    }
 	}
+	data[size] = null;
 	size -= 1;
 	return ans;
     }
-    public String peek() {
+    public T peek() {
 	if (size > 0) {
 	    return data[0];
 	}
-	return "";
+        throw new NoSuchElementException();
     }
-    public void swap(String[] d, int a, int b) {
-	String c = d[a];
+    public void swap(T[] d, int a, int b) {
+	T c = d[a];
 	d[a] = d[b];
 	d[b] = c;
     }
@@ -92,30 +116,33 @@ public class MyHeap {
 	for (int i = 0; i < size; i++) {
 	    ans += data[i] + ", ";
 	}
-	return ans + "]";
+	if (ans.length() > 2) {
+	    return ans.substring(0, ans.length()-2) + "]";
+	}
+	return "[]";
     }
     @SuppressWarnings("unchecked")
     private void resize() {
-	String[] newData = new String[size() * 2];
+        T[] newData = (T[]) new Comparable[size() * 2];
 	for (int i = 0; i < size(); i++) {
 	    newData[i] = data[i];
 	}
 	data = newData;
     }
     public static void main(String[] args) {
-        MyHeap test = new MyHeap();
-	test.add("b");
-	test.add("z");
-	test.add("c");
-	test.add("a");
-	test.add("c");
-	test.add("q");
-	test.add("y");
-	test.add("o");
-	test.add("t");
-	test.add("d");
-	test.add("m");
-	test.add("h");
+        MyHeap<Integer> test = new MyHeap<>(false);
+	test.add(2);
+	test.add(12);
+	test.add(5);
+	test.add(0);
+	test.add(5);
+	test.add(78);
+	test.add(13);
+	test.add(11);
+	test.add(17);
+	test.add(18);
+	test.add(16);
+	test.add(23);
 	test.remove();
 	test.remove();
         System.out.println(test);
