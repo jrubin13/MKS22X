@@ -36,6 +36,9 @@ public class RunningMedian {
 	size += 1;
     }
     public double getMedian() {
+	if (size == 0) {
+	    throw new NoSuchElementException();
+	}
 	if (size % 2 == 1) {
 	    return data[size/2];
 	}
@@ -56,6 +59,7 @@ public class RunningMedian {
     
     public static void main(String[] args) {
 	RunningMedian test = new RunningMedian();
+	//System.out.println(test.getMedian());
 	test.add(3.3);
 	//System.out.println(Arrays.toString(test.data));
 	//System.out.println(test.size());
