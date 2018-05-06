@@ -30,43 +30,43 @@ public class MyDeque<E> {
 	if (value == null) {
 	    throw new NullPointerException();
 	}
-	if (size() == data.length) {
+	if (size()+1 >= data.length) {
 	    resize();
 	}
 	if (size == 0) {
 	    data[0] = value;
 	    size += 1;
+	    end += 1;
 	    return;
 	}
-	if (start == 0) {
-	    data[size-1] = value;
-	    start = size-1;
-	    size += 1;
-	    return;
+	data[size] = data[size-1];
+	for (int i = 0; i < size-1; i++) {
+	    swap(data, i, i+1);
 	}
-	data[start-1] = value;
-	start -= 1;
+	data[0] = value;
 	size += 1;
+	end += 1;
     }
     public void addLast(E value) {
 	if (value == null) {
 	    throw new NullPointerException();
 	}
-	if (size() == data.length) {
+	if (size()+1 >= data.length) {
 	    resize();
 	}
 	if (size == 0) {
 	    data[0] = value;
 	    size += 1;
+	    end += 1;
 	    return;
 	}
-	if (end == size - 1) {
+	if (size == data.length - 1) {
 	    data[0] = value;
 	    end = 0;
 	    size += 1;
 	    return;
 	}
-	data[end+1] = value;
+	data[end] = value;
 	end += 1;
 	size += 1;
     }
@@ -88,7 +88,7 @@ public class MyDeque<E> {
 	if (size() == 0) {
 	    throw new NoSuchElementException();
 	}
-	E temp = data[end];
+	E temp = data[end-1];
 	if (end == 0) {
 	    end = size - 1;
 	    size -= 1;
@@ -117,5 +117,25 @@ public class MyDeque<E> {
 	    newData[i] = data[i];
 	}
 	data = newData;
+    }
+    public void swap(E[] d, int a, int b) {
+	E c = d[a];
+	d[a] = d[b];
+	d[b] = c;
+    }
+    public static void main(String[] args) {
+	MyDeque<Integer> test = new MyDeque<>(4);
+	test.addFirst(2);
+	test.addLast(3);
+	//System.out.println(Arrays.toString(test.data));
+	//System.out.println(test.size);
+	test.addFirst(1);
+	//System.out.println(Arrays.toString(test.data));
+	test.addLast(4);
+	System.out.println(Arrays.toString(test.data));
+	System.out.println(test.removeFirst());
+	System.out.println(test.removeLast());
+	System.out.println(Arrays.toString(test.data));
+	
     }
 }
