@@ -15,8 +15,18 @@ public class MyHeap<T extends Comparable<T>> {
 	size = 0;
         max = type;
     }
-    public static void heapify(int[] data) {
-        Sorts.heapsort(data);
+    @SuppressWarnings("unchecked")
+    public static void heapify(int[] d, boolean type) {
+	MyHeap<Integer> data = new MyHeap<>(type);
+	//int[] ans = new int[d.length];
+        for (int i = 0; i < d.length; i++) {
+	    data.add(d[i]);
+        }
+	int i = 0;
+	while (0 < data.size()) {
+	    d[i] = data.remove();
+	    i+=1;
+	}
     }
     public int size() {
 	return size;
@@ -150,8 +160,11 @@ public class MyHeap<T extends Comparable<T>> {
 	test.remove();
         //System.out.println(test);
         int[] test2 = {4,3,56,22,0,453,67};
-	heapify(test2);
+	heapify(test2, true);
 	System.out.println(Arrays.toString(test2));
+	int[] test3 = {4,3,56,22,0,453,67};
+	heapify(test3, false);
+	System.out.println(Arrays.toString(test3));
     }
     
 }
