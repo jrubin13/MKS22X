@@ -16,17 +16,13 @@ public class MyHeap<T extends Comparable<T>> {
         max = type;
     }
     @SuppressWarnings("unchecked")
-    public static void heapify(int[] d, boolean type) {
+    public static MyHeap heapify(int[] d, boolean type) {
 	MyHeap<Integer> data = new MyHeap<>(type);
 	//int[] ans = new int[d.length];
         for (int i = 0; i < d.length; i++) {
 	    data.add(d[i]);
         }
-	int i = 0;
-	while (0 < data.size()) {
-	    d[i] = data.remove();
-	    i+=1;
-	}
+	return data;
     }
     public int size() {
 	return size;
