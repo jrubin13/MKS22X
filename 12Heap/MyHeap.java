@@ -51,6 +51,9 @@ public class MyHeap<T extends Comparable<T>> {
 	if (size <= 0) {
 	    throw new NoSuchElementException();
 	}
+	if (size == 10) {
+	    resize();
+	}
         T ans = data[0];
 	data[0] = data[size-1];
 	int i = 0;
@@ -58,14 +61,14 @@ public class MyHeap<T extends Comparable<T>> {
 	//System.out.println(size());
 	data[size-1] = null;
 	if (max) {
-	    while (2*i+2 < size-1) {
+	    while (2*i+2 < size) {
 		if (data[i].compareTo(data[2*i+1]) < 0 &&
 		    data[i].compareTo(data[2*i+2]) > 0) {
 		    swap(data, i, 2*i+1);
 		    i = 2*i+1;
 		}
-		else if (data[i].compareTo(data[2*i+1]) > 0 &&
-			 data[i].compareTo(data[2*i+2]) < 0) {
+		else if (data[i].compareTo(data[2*i+1]) < 0 &&
+			 data[i].compareTo(data[2*i+2]) > 0) {
 		    swap(data, i, 2*i+2);
 		    i = 2*i+2;
 		}

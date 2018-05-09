@@ -1,22 +1,27 @@
 import java.util.*;
 public class Sorts extends MyHeap{
-    private int[] data;
     @SuppressWarnings("unchecked")
-    public static void heapsort(int[] d, boolean type) {
+    public static void heapsort(int[] d) {
 	if (d.length == 0) {
 	    return;
 	}
-        MyHeap<Integer> data = new MyHeap<>();
-        data = heapify(d, type);
+        MyHeap<Integer> data = heapify(d, false);
+	System.out.println(data + "\n");
         int i = 0;
 	while (0 < data.size()) {
 	    d[i] = data.remove();
+	    //System.out.println(Arrays.toString(d));
+	    //System.out.println(data);
+	    //System.out.println(data.size());
 	    i+=1;
 	}
     }
     public static void main(String[] args) {
-	int[] test = {5,2,1,78,36,23,41};
-	heapsort(test, false);
+	int[] test2 = {5,2,1,78,36,41,22,22,46,44};
+	int[] test = {5,2,1,78,36,41,22,22,46,44};
+        Arrays.sort(test2);
+	System.out.println(Arrays.toString(test2));
+	heapsort(test);
 	System.out.println(Arrays.toString(test));
     }
 }
