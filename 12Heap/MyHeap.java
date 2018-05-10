@@ -82,6 +82,12 @@ public class MyHeap<T extends Comparable<T>> {
 			i = 2*i+2;
 		    }
 		}
+		//added this in to make heapsort work
+		if (2*i+1 < size-1) {
+		    if (data[i].compareTo(data[2*i+1]) > 0) {
+			swap(data,i, 2*i+1);
+		    }
+		}
 	    }
 	}
 	else {
@@ -105,6 +111,12 @@ public class MyHeap<T extends Comparable<T>> {
 			swap(data, i, 2*i+2);
 			i = 2*i+2;
 		    }
+		}
+	    }
+	    //added this in to make heapsort work
+	    if (2*i+1 < size-1) {
+		if (data[i].compareTo(data[2*i+1]) > 0) {
+		    swap(data,i, 2*i+1);
 		}
 	    }
 	}
@@ -135,7 +147,7 @@ public class MyHeap<T extends Comparable<T>> {
     }
     @SuppressWarnings("unchecked")
     private void resize() {
-        T[] newData = (T[]) new Comparable[size() * 2];
+        T[] newData = (T[]) new Comparable[size() * 2+1];
 	for (int i = 0; i < size(); i++) {
 	    newData[i] = data[i];
 	}
