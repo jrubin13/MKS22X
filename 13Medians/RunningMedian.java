@@ -4,7 +4,7 @@ public class RunningMedian {
     private Double[] data;
     int size;
     public RunningMedian() {
-	data = new Double[10];
+	data = new Double[0];
 	size = 0;
     }
 
@@ -47,7 +47,7 @@ public class RunningMedian {
     
     
     private void resize() {
-        Double[] newData = new Double[size() * 2];
+        Double[] newData = new Double[size() * 2+1];
 	for (int i = 0; i < size(); i++) {
 	    newData[i] = data[i];
 	}
@@ -61,23 +61,23 @@ public class RunningMedian {
 	RunningMedian test = new RunningMedian();
 	//System.out.println(test.getMedian());
 	test.add(3.3);
-	//System.out.println(Arrays.toString(test.data));
+	System.out.println(Arrays.toString(test.data));
 	//System.out.println(test.size());
 	test.add(2.7);
-	//System.out.println(Arrays.toString(test.data));
+	System.out.println(Arrays.toString(test.data));
 	//System.out.println(test.size());
 	test.add(0.0);
-	//System.out.println(Arrays.toString(test.data));
+	System.out.println(Arrays.toString(test.data));
 	//System.out.println(test.size());
 	test.add(2.1);
 	//System.out.println(Arrays.toString(test.data));
 	//System.out.println(test.size());
-	test.add(3.0);
-	//System.out.println(Arrays.toString(test.data));
+	//test.add(3.0);
+	System.out.println(Arrays.toString(test.data));
 	test.add(5.6);
 	test.add(1.62);
-	//System.out.println(Arrays.toString(test.data));
-	//System.out.println(test.size());
-	//System.out.println(test.getMedian());
+	System.out.println(Arrays.toString(test.data));
+	System.out.println(test.size());
+	System.out.println(test.getMedian());
     }
 }
