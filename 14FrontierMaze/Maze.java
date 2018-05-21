@@ -11,8 +11,16 @@ public class Maze{
     public Location[] getNeighbors(Location L){
 	int[] x = {1,0,-1,0};
 	int[] y = {0,1,0,-1};
-	Location[] places;
-        
+	Location[] places = new Location[];
+        for (int i = 0; i < 4; i++) {
+	    if (maze[L.row()+x[i]][L.col()+y[i]] != '#' ||
+		maze[L.row()+x[i]][L.col()+y[i]] != '.' ||
+		maze[L.row()+x[i]][L.col()+y[i]] != '?') {
+		Location a = new Location(L.row()+x[i], L.col()+y[i], L);
+		places.add(a);
+	    }
+	}
+	return places;
     }
     
     public Location getStart(){
