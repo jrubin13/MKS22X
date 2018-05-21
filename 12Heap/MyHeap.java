@@ -61,14 +61,14 @@ public class MyHeap<T extends Comparable<T>> {
 	//System.out.println(size());
 	data[size-1] = null;
 	if (max) {
-	    while (2*i+2 < size) {
+	    while (2*i+2 < size-1) {
 		if (data[i].compareTo(data[2*i+1]) < 0 &&
 		    data[i].compareTo(data[2*i+2]) > 0) {
 		    swap(data, i, 2*i+1);
 		    i = 2*i+1;
 		}
-		else if (data[i].compareTo(data[2*i+1]) < 0 &&
-			 data[i].compareTo(data[2*i+2]) > 0) {
+		else if (data[i].compareTo(data[2*i+1]) > 0 &&
+			 data[i].compareTo(data[2*i+2]) < 0) {
 		    swap(data, i, 2*i+2);
 		    i = 2*i+2;
 		}
@@ -82,11 +82,11 @@ public class MyHeap<T extends Comparable<T>> {
 			i = 2*i+2;
 		    }
 		}
-		//added this in to make heapsort work
-		if (2*i+1 < size-1) {
-		    if (data[i].compareTo(data[2*i+1]) > 0) {
-			swap(data,i, 2*i+1);
-		    }
+	    }
+	    //added this in to make heapsort work
+	    if (2*i+1 < size-1) {
+		if (data[i].compareTo(data[2*i+1]) < 0) {
+		    swap(data,i, 2*i+1);
 		}
 	    }
 	}
@@ -154,22 +154,26 @@ public class MyHeap<T extends Comparable<T>> {
 	data = newData;
     }
     public static void main(String[] args) {
-        MyHeap<Integer> test = new MyHeap<>(false);
+        MyHeap<Integer> test = new MyHeap<>(true);
 	test.add(2);
-	test.add(12);
+	test.add(1);
 	test.add(5);
 	test.add(0);
-	test.add(5);
-	test.add(78);
-	test.add(13);
-	test.add(11);
-	test.add(17);
-	test.add(18);
-	test.add(16);
-	test.add(23);
+	test.add(6);
+	test.add(7);
+	test.add(4);
+	test.add(9);
+	test.add(8);
+	test.add(3);
+	test.add(9);
+	test.add(9);
 	test.remove();
 	test.remove();
-        //System.out.println(test);
+	System.out.println(test);
+	for (int i = 0; i < 10; i++) {
+	    System.out.println(test.remove());
+        }
+        System.out.println(test);
         int[] test2 = {4,3,56,22,0,453,67};
 	heapify(test2, true);
 	System.out.println(Arrays.toString(test2));
