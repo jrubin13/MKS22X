@@ -37,6 +37,7 @@ public class MyDeque<E> {
 	    data[0] = value;
 	    size += 1;
 	    end += 1;
+	    start = 0;
 	    return;
 	}
 	data[size] = data[size-1];
@@ -114,8 +115,17 @@ public class MyDeque<E> {
     private void resize() {
 	E[] newData = (E[]) new Object[size() * 2];
 	for (int i = 0; i < size(); i++) {
-	    newData[i] = data[i];
+	    int x = 0;
+	    if (start+i < size) {
+		newData[i] = data[start+i];
+	    }
+	    else {
+		newData[i] = data[x];
+		x+=1;
+	    }
 	}
+	start = 0;
+	end = size;
 	data = newData;
     }
     public void swap(E[] d, int a, int b) {
