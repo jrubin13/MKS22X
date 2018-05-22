@@ -60,24 +60,9 @@ public class RunningMedian {
     public static void main(String[] args) {
 	RunningMedian test = new RunningMedian();
 	//System.out.println(test.getMedian());
-	test.add(3.3);
-	System.out.println(Arrays.toString(test.data));
-	//System.out.println(test.size());
-	test.add(2.7);
-	System.out.println(Arrays.toString(test.data));
-	//System.out.println(test.size());
-	test.add(0.0);
-	System.out.println(Arrays.toString(test.data));
-	//System.out.println(test.size());
-	test.add(2.1);
-	//System.out.println(Arrays.toString(test.data));
-	//System.out.println(test.size());
-	//test.add(3.0);
-	System.out.println(Arrays.toString(test.data));
-	test.add(5.6);
-	test.add(1.62);
-	System.out.println(Arrays.toString(test.data));
-	System.out.println(test.size());
+        for (int i = 0; i < 10000; i++) {
+	    test.add(Math.random()*100);
+	}
 	System.out.println(test.getMedian());
     }
 }
