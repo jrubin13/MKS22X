@@ -30,74 +30,76 @@ public class MyDeque<E> {
 	if (value == null) {
 	    throw new NullPointerException();
 	}
-	if (size()+1 >= data.length) {
+	if (size() >= data.length) {
 	    resize();
 	}
 	if (size == 0) {
-	    data[0] = value;
+	    data[start] = value;
 	    size += 1;
-	    end += 1;
+	    //end += 1;
 	    start = 0;
 	    return;
 	}
-	data[size] = data[size-1];
-	for (int i = 0; i < size-1; i++) {
-	    swap(data, i, i+1);
+	if (start != 0) {
+	    data[start-1] = value;
+	    start -= 1;
 	}
-	data[0] = value;
+	else {
+	    data[data.length-1] = value;
+	    start = data.length-1;
+	}
 	size += 1;
-	end += 1;
     }
     public void addLast(E value) {
 	if (value == null) {
 	    throw new NullPointerException();
 	}
-	if (size()+1 >= data.length) {
+	if (size() >= data.length) {
 	    resize();
 	}
 	if (size == 0) {
 	    data[0] = value;
 	    size += 1;
-	    end += 1;
+	    //end += 1;
 	    return;
 	}
-	if (size == data.length - 1) {
+	if (end >= data.length) {
 	    data[0] = value;
 	    end = 0;
-	    size += 1;
-	    return;
 	}
-	data[end] = value;
-	end += 1;
+	else {
+	    data[end+1] = value;
+	    end += 1;
+	}
 	size += 1;
     }
     public E removeFirst() {
 	if (size() == 0) {
 	    throw new NoSuchElementException();
 	}
-        E temp = data[start];
-	if (start == size - 1) {
+        E ans = data[start];
+	if (start == data.length - 1) {
 	    start = 0;
 	    size -= 1;
-	    return temp;
+	    return ans;
 	}
 	start += 1;
 	size -= 1;
-	return temp;
+	return ans;
     }
     public E removeLast() {
 	if (size() == 0) {
 	    throw new NoSuchElementException();
 	}
-	E temp = data[end-1];
+	E ans = data[end];
 	if (end == 0) {
-	    end = size - 1;
+	    end = data.length-1;
 	    size -= 1;
-	    return temp;
+	    return ans;
 	}
 	end -= 1;
 	size -= 1;
-	return temp;
+	return ans;
     }
     public E getFirst() {
 	if (size() == 0) {
@@ -114,19 +116,29 @@ public class MyDeque<E> {
     @SuppressWarnings("unchecked")
     private void resize() {
 	E[] newData = (E[]) new Object[size() * 2];
-	for (int i = 0; i < size(); i++) {
-	    int x = 0;
-	    if (start+i < size) {
-		newData[i] = data[start+i];
-	    }
-	    else {
+        int i = 0;
+	//System.out.println(start);
+	//System.out.println(end);
+        if (start < end) {
+	    for (int x = start; x <= end; x++) {
 		newData[i] = data[x];
-		x+=1;
+		i += 1;
 	    }
 	}
-	start = 0;
-	end = size;
+	else {
+	    i = 0;
+	    for (int x = start; x < data.length; x++) {
+		newData[i] = data[x];
+		i += 1;
+	    }
+	    for (int x = 0; x <= end; x++) {
+		newData[i] = data[x];
+		i+= 1;
+	    }
+	}
 	data = newData;
+	start = 0;
+	end = size()-1;
     }
     public void swap(E[] d, int a, int b) {
 	E c = d[a];
@@ -136,16 +148,28 @@ public class MyDeque<E> {
     public static void main(String[] args) {
 	MyDeque<Integer> test = new MyDeque<>(4);
 	test.addFirst(2);
+	System.out.println(Arrays.toString(test.data));
 	test.addLast(3);
-	//System.out.println(Arrays.toString(test.data));
+	System.out.println(Arrays.toString(test.data));
+	test.addLast(6);
+	System.out.println(Arrays.toString(test.data));
+	test.addLast(8);
+	System.out.println(Arrays.toString(test.data));
+	test.addFirst(12);
+        System.out.println(Arrays.toString(test.data));
+	test.addFirst(0);
+        System.out.println(Arrays.toString(test.data));
 	//System.out.println(test.size);
 	test.addFirst(1);
-	//System.out.println(Arrays.toString(test.data));
+        System.out.println(Arrays.toString(test.data));
 	test.addLast(4);
-	System.out.println(Arrays.toString(test.data));
+	System.out.println(test.start);
+	System.out.println(test.end);
+        System.out.println(Arrays.toString(test.data));
 	System.out.println(test.removeFirst());
 	System.out.println(test.removeLast());
-	System.out.println(Arrays.toString(test.data));
+	System.out.println(test.removeLast());
+        System.out.println(Arrays.toString(test.data));
 	
     }
 }
