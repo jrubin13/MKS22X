@@ -7,20 +7,35 @@ public class Maze{
     private static final String SHOW_CURSOR =  "\033[?25h";
     Location start,end;
     private char[][]maze;
+    private int s;
     
     public Location[] getNeighbors(Location L){
 	int[] x = {1,0,-1,0};
 	int[] y = {0,1,0,-1};
-	Location[] places = new Location[];
+	Location[] temp = new Location[4];
+        s = 0;
         for (int i = 0; i < 4; i++) {
-	    if (maze[L.row()+x[i]][L.col()+y[i]] != '#' ||
-		maze[L.row()+x[i]][L.col()+y[i]] != '.' ||
-		maze[L.row()+x[i]][L.col()+y[i]] != '?') {
+	    if ((L.row() + x[i] >= 1 && L.row() + x[i] < maze.length-1) &&
+		(L.col() + y[i] >= 1 && L.col() + y[i] < maze[0].length-1) &&
+		(maze[L.row()+x[i]][L.col()+y[i]] == ' ' ||
+		 maze[L.row()+x[i]][L.col()+y[i]] == 'E' ||
+		 maze[L.row()+x[i]][L.col()+y[i]] == '?')) {
 		Location a = new Location(L.row()+x[i], L.col()+y[i], L);
-		places.add(a);
+		maze[L.row()+x[i]][L.col()+y[i]] = '?';
+	        temp[s] = a;
+		s +=1;
+		//System.out.println("S: " + s);
 	    }
 	}
+	Location[] places = new Location[s];
+	for (int i = 0; i < s; i++) {
+	    places[i] = temp[i];
+	}
 	return places;
+    }
+
+    public int s() {
+	return s;
     }
     
     public Location getStart(){

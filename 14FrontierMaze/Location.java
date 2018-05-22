@@ -6,13 +6,16 @@ public class Location{
 	y = _y;
 	previous = prev;
     }
-    public int getX() {
+    public int row() {
 	return x;
     }
-    public int getY() {
+    public int col() {
 	return y;
     }
     public Location getPrev() {
 	return previous;
+    }
+    public String toString() {
+	return "(" + y + ", " + x + ")";
     }
 }

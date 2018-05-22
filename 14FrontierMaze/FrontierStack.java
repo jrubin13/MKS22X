@@ -1,5 +1,5 @@
 public class FrontierStack implements Frontier{
-    private Stack<Location> checks;
+    private LinkedListStack<Location> checks;
     public FrontierStack() {
 	checks = new LinkedList<Location>();
     }
@@ -8,7 +8,7 @@ public class FrontierStack implements Frontier{
     }
     public Location next() {
 	if (hasNext()) {
-	    return checks.get(0);
+	    return checks.get(checks.size());
 	}
     }
     public boolean hasNext() {
