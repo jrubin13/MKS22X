@@ -41,6 +41,5 @@ public class Calculator {
 	System.out.println(a.eval("10 2 + "));
 	System.out.println(a.eval("11 3 - 4 + 2.5 *"));
 	System.out.println(a.eval("8 2 + 99 9 - * 2 + 9 -"));
-	
     }
 }
