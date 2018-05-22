@@ -4,7 +4,7 @@ public class RunningMedian {
     private Double[] data;
     int size;
     public RunningMedian() {
-	data = new Double[0];
+	data = new Double[10];
 	size = 0;
     }
 
