@@ -47,6 +47,9 @@ public class MazeSolver{
 		wait(100);
 	    }
 	}
+	if (mode == 1) {
+
+	}
 	return false;
     }
     private void wait(int millis){
