@@ -15,6 +15,8 @@ public class Maze{
 	Location[] temp = new Location[4];
         s = 0;
         for (int i = 0; i < 4; i++) {
+	    int dist = Math.abs((L.col() + y[i]) - getEnd().col()) +
+		Math.abs((L.row() + x[i]) - getEnd().row());
 	    if ((L.row() + x[i] >= 1 && L.row() + x[i] < maze.length-1) &&
 		(L.col() + y[i] >= 1 && L.col() + y[i] < maze[0].length-1) &&
 		(maze[L.row()+x[i]][L.col()+y[i]] == ' ' ||

@@ -3,43 +3,67 @@ import java.io.FileNotFoundException;
 import java.util.*;
 public class MazeSolver{
     private Maze maze;
+    private boolean animate = false;
     private Frontier frontier;
     public MazeSolver(String mazeText) {
 	maze = new Maze(mazeText);
 	maze.clearTerminal();
-	solve();
+	//solve();
+	//animate = false;
+    }
+    public void setAnimate(boolean type) {
+	animate = type;
     }
     public boolean solve() {
+	//animate = false;
 	return solve(0);
     }
     public boolean solve(int mode) {
 	if (mode == 0) {
 	    frontier = new FrontierQueue();
-	    Location a = maze.getStart();
-	    frontier.add(a);
-	    while (frontier.hasNext()) {
-		Location n = frontier.next();
-		//System.out.println(Arrays.toString(b));
-		Location[] temp = maze.getNeighbors(n);
-		maze.set(n.row(), n.col(), '.');
-		//System.out.println(Arrays.toString(b));
-		if (n.row() == maze.getEnd().row() &&
-		    n.col() == maze.getEnd().col()){
-		    while (n.getPrev() != maze.getStart()) {
-			n = n.getPrev();
-			maze.set(n.row(), n.col(), '@');
-		    }
-		    maze.set(maze.getEnd().row(), maze.getEnd().col(), 'E');
+	    return simulation();
+	}
+	if (mode == 1) {
+	    frontier = new FrontierStack();
+	    return simulation();
+	}
+        //if (mode == 2) {
+	    //System.out.println(mode);
+	//  frontier = new FrontierPriorityQueue();
+	//  return simulation();
+	//}
+	return false;
+    }
+    private boolean simulation() {
+	Location a = maze.getStart();
+	frontier.add(a);
+	while (frontier.hasNext()) {
+	    Location n = frontier.next();
+	    //System.out.println(Arrays.toString(b));
+	    Location[] temp = maze.getNeighbors(n);
+	    maze.set(n.row(), n.col(), '.');
+	    //System.out.println(Arrays.toString(b));
+	    if (n.row() == maze.getEnd().row() &&
+		n.col() == maze.getEnd().col()){
+		while (n.getPrev() != maze.getStart()) {
+		    n = n.getPrev();
+		    maze.set(n.row(), n.col(), '@');
+		}
+		maze.set(maze.getStart().row(), maze.getStart().col(), 'S');
+		maze.set(maze.getEnd().row(), maze.getEnd().col(), 'E');
+		if (animate) {
 		    //System.out.println("\n" + maze);
 		    maze.clearTerminal();
 		    System.out.println(maze);
-		    return true;
 		}
-		//maze.set(n.row(), n.col(), '@');
-		//frontier.remove();
-		for (int i = 0; i < temp.length; i++) {
-		    frontier.add(temp[i]);
-		}
+		return true;
+	    }
+	    //maze.set(n.row(), n.col(), '@');
+	    //frontier.remove();
+	    for (int i = 0; i < temp.length; i++) {
+		frontier.add(temp[i]);
+	    }
+	    if (animate) {
 		maze.set(maze.getStart().row(), maze.getStart().col(), 'S');
 		maze.set(maze.getEnd().row(), maze.getEnd().col(), 'E');
 		maze.clearTerminal();
