@@ -7,7 +7,7 @@ public class MazeSolver{
     private Frontier frontier;
     public MazeSolver(String mazeText) {
 	maze = new Maze(mazeText);
-	maze.clearTerminal();
+	//maze.clearTerminal();
 	//solve();
 	//animate = false;
     }
@@ -64,9 +64,9 @@ public class MazeSolver{
 		frontier.add(temp[i]);
 	    }
 	    if (animate) {
+		maze.clearTerminal();
 		maze.set(maze.getStart().row(), maze.getStart().col(), 'S');
 		maze.set(maze.getEnd().row(), maze.getEnd().col(), 'E');
-		maze.clearTerminal();
 		System.out.println(maze);
 		wait(100);
 	    }
@@ -85,5 +85,7 @@ public class MazeSolver{
     }
     public static void main(String[] args) {
 	MazeSolver test = new MazeSolver("data1.dat");
+	test.setAnimate(false);
+	test.solve(1);
     }
 }
