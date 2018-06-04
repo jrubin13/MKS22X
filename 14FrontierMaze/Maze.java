@@ -24,7 +24,9 @@ public class Maze{
 		(maze[L.row()+x[i]][L.col()+y[i]] == ' ' ||
 		 maze[L.row()+x[i]][L.col()+y[i]] == 'E' ||
 		 maze[L.row()+x[i]][L.col()+y[i]] == '?')) {
-		Location a = new Location(L.row()+x[i], L.col()+y[i], L);
+		if (mode == 0 || mode == 1) {
+		    Location a = new Location(L.row()+x[i], L.col()+y[i], L);
+		}
 		maze[L.row()+x[i]][L.col()+y[i]] = '?';
 	        temp[s] = a;
 		s +=1;
