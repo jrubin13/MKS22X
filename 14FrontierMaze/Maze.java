@@ -19,18 +19,12 @@ public class Maze{
         for (int i = 0; i < 4; i++) {
 	    int dist = Math.abs((L.col() + y[i]) - getEnd().col()) +
 		Math.abs((L.row() + x[i]) - getEnd().row());
-	    if (!(aStar)) {
-		totdist = dist;
-	    }
-	    else {
-		totdist = dist + L.getDist();
-	    }
 	    if ((L.row() + x[i] >= 1 && L.row() + x[i] < maze.length-1) &&
 		(L.col() + y[i] >= 1 && L.col() + y[i] < maze[0].length-1) &&
 		(maze[L.row()+x[i]][L.col()+y[i]] == ' ' ||
 		 maze[L.row()+x[i]][L.col()+y[i]] == 'E' ||
 		 maze[L.row()+x[i]][L.col()+y[i]] == '?')) {
-		Location a = new Location(L.row()+x[i], L.col()+y[i], L, dist, totdist);
+		Location a = new Location(L.row()+x[i], L.col()+y[i], L);
 		maze[L.row()+x[i]][L.col()+y[i]] = '?';
 	        temp[s] = a;
 		s +=1;

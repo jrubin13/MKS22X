@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.FileNotFoundException;
 import java.util.*;
 public class FrontierPriorityQueue implements Frontier{
-    private PriorityQueue<Location> checks;
+    private MyHeap<Location> checks;
     public FrontierPriorityQueue() {
 	checks = new MyHeap<Location>();
     }

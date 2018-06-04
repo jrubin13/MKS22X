@@ -18,7 +18,7 @@ public class MyHeap<T extends Comparable<T>>{
     public int size() {
 	return size;
     }
-    public void add(Location s) {
+    public void add(T s) {
 	if (size >= data.length) {
 	    resize();
 	}

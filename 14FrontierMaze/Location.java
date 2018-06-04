@@ -3,11 +3,18 @@ public class Location implements Comparable<Location>{
     private Location previous;
     private int dist;
     private int totdist;
+    public Location(int _x, int _y, Location prev, int d) {
+	x = _x;
+	y = _y;
+	previous = prev;
+	totdist = d;
+	dist = d;
+    }
     public Location(int _x, int _y, Location prev, int d, int combineddist) {
 	x = _x;
 	y = _y;
 	previous = prev;
-	dist = d;
+	dist = combineddist-d;
 	totdist = combineddist;
     }
     public Location(int _x, int _y, Location prev) {
@@ -22,7 +29,7 @@ public class Location implements Comparable<Location>{
 	return y;
     }
     public int getDist() {
-	return dist;
+	return dist
     }
     public int getTotalDist() {
 	return totdist;
@@ -36,6 +43,6 @@ public class Location implements Comparable<Location>{
     public int compareTo(Location o) {
 	int a = getTotalDist();
 	int b = o.getTotalDist();
-	return a - b;
+	return b - a;
     }
 }

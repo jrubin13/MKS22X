@@ -31,6 +31,7 @@ public class MazeSolver{
         if (mode == 2) {                      //Best First
 	    //System.out.println(mode);
 	    frontier = new FrontierPriorityQueue();
+	    //maze.setAStar(astar);
 	    return simulation();
 	}
 	if (mode == 3) {                      //A*
