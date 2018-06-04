@@ -8,7 +8,8 @@ public class Maze{
     Location start,end;
     private char[][]maze;
     private int s;
-    private boolean astar  = false;
+    private boolean aStar  = false;
+    private int totdist = 0;
     
     public Location[] getNeighbors(Location L){
 	int[] x = {1,0,-1,0};
@@ -18,12 +19,18 @@ public class Maze{
         for (int i = 0; i < 4; i++) {
 	    int dist = Math.abs((L.col() + y[i]) - getEnd().col()) +
 		Math.abs((L.row() + x[i]) - getEnd().row());
+	    if (!(aStar)) {
+		totdist = dist;
+	    }
+	    else {
+		totdist = dist + L.getDist();
+	    }
 	    if ((L.row() + x[i] >= 1 && L.row() + x[i] < maze.length-1) &&
 		(L.col() + y[i] >= 1 && L.col() + y[i] < maze[0].length-1) &&
 		(maze[L.row()+x[i]][L.col()+y[i]] == ' ' ||
 		 maze[L.row()+x[i]][L.col()+y[i]] == 'E' ||
 		 maze[L.row()+x[i]][L.col()+y[i]] == '?')) {
-		Location a = new Location(L.row()+x[i], L.col()+y[i], L);
+		Location a = new Location(L.row()+x[i], L.col()+y[i], L, dist, totdist);
 		maze[L.row()+x[i]][L.col()+y[i]] = '?';
 	        temp[s] = a;
 		s +=1;
@@ -48,7 +55,7 @@ public class Maze{
 	return end;
     }
     public void setAStar(boolean type) {
-	astar = type;
+	aStar = type;
     }
     
     private static String go(int x,int y){

@@ -7,7 +7,7 @@ public class MyHeap<T extends Comparable<T>>{
     public MyHeap() {
 	data = (T[]) new Comparable[10];
 	size = 0;
-	max = true;
+	max = false;
     }
     @SuppressWarnings("unchecked")
     public MyHeap(boolean type) {
@@ -15,13 +15,6 @@ public class MyHeap<T extends Comparable<T>>{
 	size = 0;
         max = type;
     }
-    public Location next() {
-	return remove();
-    }
-    public boolean hasNext() {
-	return size > 0;
-    }
-    
     public int size() {
 	return size;
     }

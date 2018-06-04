@@ -5,6 +5,7 @@ public class MazeSolver{
     private Maze maze;
     private boolean animate = false;
     private Frontier frontier;
+    private boolean astar = true;
     public MazeSolver(String mazeText) {
 	maze = new Maze(mazeText);
 	//maze.clearTerminal();
@@ -19,19 +20,24 @@ public class MazeSolver{
 	return solve(0);
     }
     public boolean solve(int mode) {
-	if (mode == 0) {
+	if (mode == 0) {                      //Breadth-First
 	    frontier = new FrontierQueue();
 	    return simulation();
 	}
-	if (mode == 1) {
+	if (mode == 1) {                      //Depth-First
 	    frontier = new FrontierStack();
 	    return simulation();
 	}
-        //if (mode == 2) {
+        if (mode == 2) {                      //Best First
 	    //System.out.println(mode);
-	//  frontier = new FrontierPriorityQueue();
-	//  return simulation();
-	//}
+	    frontier = new FrontierPriorityQueue();
+	    return simulation();
+	}
+	if (mode == 3) {                      //A*
+	    frontier = new FrontierPriorityQueue();
+	    maze.setAStar(astar);
+	    return simulation();
+	}
 	return false;
     }
     private boolean simulation() {
