@@ -8,6 +8,7 @@ public class Maze{
     Location start,end;
     private char[][]maze;
     private int s;
+    private boolean astar  = false;
     
     public Location[] getNeighbors(Location L){
 	int[] x = {1,0,-1,0};
@@ -46,7 +47,9 @@ public class Maze{
     public Location getEnd(){
 	return end;
     }
-    
+    public void setAStar(boolean type) {
+	astar = type;
+    }
     
     private static String go(int x,int y){
 	return ("\033[" + x + ";" + y + "H");
