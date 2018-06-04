@@ -1,8 +1,8 @@
 import java.util.*;
 import java.io.*;
 public class Calculator {
-    LinkedList<Double> data = new LinkedList<>();
-    public double eval(String s) {
+    public static double eval(String s) {
+	LinkedList<Double> data = new LinkedList<>();
         String[] data1 = s.split(" ");
 	//System.out.println(Arrays.toString(data1));
 	for (int i = 0 ; i < data1.length; i++) {
