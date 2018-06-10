@@ -47,12 +47,20 @@ public class MazeSolver{
 	return false;
     }
     private boolean simulation() {
-	Location a = maze.getStart();
-	frontier.add(a);
+	Location start = maze.getStart();
+	Location[] temp;
+	frontier.add(start);
 	while (frontier.hasNext()) {
 	    Location n = frontier.next();
 	    //System.out.println(Arrays.toString(b));
-	    Location[] temp = maze.getNeighbors(n);
+	    //System.out.println(n);
+	    System.out.println(frontier);
+	    if (mode == 0 || mode == 1) {
+		temp = maze.getNeighbors(n);
+	    }
+	    else {
+		temp = maze.getNeighbors2(n);
+	    }
 	    maze.set(n.row(), n.col(), '.');
 	    //System.out.println(Arrays.toString(b));
 	    if (n.row() == maze.getEnd().row() &&

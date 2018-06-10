@@ -10,23 +10,54 @@ public class Maze{
     private int s;
     private boolean aStar  = false;
     private int totdist = 0;
+
+    public Location[] getNeighbors(Location L) {
+	int[] x = {1,0,-1,0};
+	int[] y = {0,1,0,-1};
+	Location[] temp = new Location[4];
+	//System.out.println(L);
+        s = 0;
+        for (int i = 0; i < 4; i++) {
+	    if ((L.row() + x[i] >= 1 && L.row() + x[i] < maze.length-1) &&
+		(L.col() + y[i] >= 1 && L.col() + y[i] < maze[0].length-1)) {
+		if (maze[L.row()+x[i]][L.col()+y[i]] == ' ' ||
+		    maze[L.row()+x[i]][L.col()+y[i]] == 'E' ||
+		    maze[L.row()+x[i]][L.col()+y[i]] == '?') {
+		    Location a = new Location(L.row()+x[i], L.col()+y[i], L);
+		    maze[L.row()+x[i]][L.col()+y[i]] = '?';
+		    temp[s] = a;
+		    s +=1;
+		}
+	    }
+	}
+	Location[] places = new Location[s];
+	for (int i = 0; i < s; i++) {
+	    places[i] = temp[i];
+	}
+	return places;
+    }
     
-    public Location[] getNeighbors(Location L){
+    public Location[] getNeighbors2(Location L){
 	int[] x = {1,0,-1,0};
 	int[] y = {0,1,0,-1};
 	Location[] temp = new Location[4];
         s = 0;
         for (int i = 0; i < 4; i++) {
-	    int dist = Math.abs((L.col() + y[i]) - getEnd().col()) +
-		Math.abs((L.row() + x[i]) - getEnd().row());
+	    int dist = Math.abs((L.col() + y[i]) - getStart().col()) +
+		Math.abs((L.row() + x[i]) - getStart().row());
+	    //System.out.println(dist);
 	    if ((L.row() + x[i] >= 1 && L.row() + x[i] < maze.length-1) &&
 		(L.col() + y[i] >= 1 && L.col() + y[i] < maze[0].length-1) &&
 		(maze[L.row()+x[i]][L.col()+y[i]] == ' ' ||
 		 maze[L.row()+x[i]][L.col()+y[i]] == 'E' ||
 		 maze[L.row()+x[i]][L.col()+y[i]] == '?')) {
-		if (mode == 0 || mode == 1) {
-		    Location a = new Location(L.row()+x[i], L.col()+y[i], L);
+		if (aStar) {
+		    totdist = dist + L.getDist();
 		}
+		else {
+		    totdist = dist;
+		}
+		Location a = new Location(L.row()+x[i], L.col()+y[i], L, dist, totdist);
 		maze[L.row()+x[i]][L.col()+y[i]] = '?';
 	        temp[s] = a;
 		s +=1;

@@ -18,4 +18,13 @@ public class FrontierPriorityQueue implements Frontier{
     public boolean hasNext() {
 	return checks.size() > 0;
     }
+    public String toString() {
+	String ans = "[";
+	int i = 0;
+	while (hasNext()) {
+	    ans += "(" + checks.peek(i).row() + " , " + checks.peek(i).col() + "), ";
+	    i += 1;
+	}
+	return ans + "]";
+    }
 }
