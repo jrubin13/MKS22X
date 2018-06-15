@@ -38,7 +38,7 @@ public class Location implements Comparable<Location>{
 	return previous;
     }
     public String toString() {
-	return "(" + x + ", " + y + ")";
+	return totdist+"";
     }
     public int compareTo(Location o) {
 	int a = getTotalDist();

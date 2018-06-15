@@ -115,9 +115,9 @@ public class MyHeap<T extends Comparable<T>>{
 	size -= 1;
 	return ans;
     }
-    public T peek() {
+    public T peek(int i) {
 	if (size > 0) {
-	    return data[0];
+	    return data[i];
 	}
         throw new NoSuchElementException();
     }

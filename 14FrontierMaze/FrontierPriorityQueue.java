@@ -25,6 +25,7 @@ public class FrontierPriorityQueue implements Frontier{
 	    ans += "(" + checks.peek(i).row() + " , " + checks.peek(i).col() + "), ";
 	    i += 1;
 	}
-	return ans + "]";
+	ans += "]";
+	return ans;
     }
 }

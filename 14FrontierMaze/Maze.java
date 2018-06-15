@@ -43,8 +43,8 @@ public class Maze{
 	Location[] temp = new Location[4];
         s = 0;
         for (int i = 0; i < 4; i++) {
-	    int dist = Math.abs((L.col() + y[i]) - getStart().col()) +
-		Math.abs((L.row() + x[i]) - getStart().row());
+	    int dist = Math.abs((L.col() + y[i]) - getEnd().col()) +
+		Math.abs((L.row() + x[i]) - getEnd().row());
 	    //System.out.println(dist);
 	    if ((L.row() + x[i] >= 1 && L.row() + x[i] < maze.length-1) &&
 		(L.col() + y[i] >= 1 && L.col() + y[i] < maze[0].length-1) &&
@@ -57,7 +57,7 @@ public class Maze{
 		else {
 		    totdist = dist;
 		}
-		Location a = new Location(L.row()+x[i], L.col()+y[i], L, dist, totdist);
+		Location a = new Location(L.row()+x[i], L.col()+y[i], L, L.getDist()+1, totdist);
 		maze[L.row()+x[i]][L.col()+y[i]] = '?';
 	        temp[s] = a;
 		s +=1;

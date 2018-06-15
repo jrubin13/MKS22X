@@ -52,6 +52,7 @@ public class MazeSolver{
 	frontier.add(start);
 	while (frontier.hasNext()) {
 	    Location n = frontier.next();
+	    System.out.println(n);
 	    //System.out.println(Arrays.toString(b));
 	    //System.out.println(n);
 	    System.out.println(frontier);

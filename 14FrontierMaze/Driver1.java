@@ -3,6 +3,6 @@ public class Driver1{
         
 	MazeSolver test = new MazeSolver("data1.dat");
 	test.setAnimate(true);
-	test.solve(0);
+	test.solve(2);
     }
 }

@@ -19,8 +19,7 @@ public class FrontierQueue implements Frontier {
     }
     public Location next() {
 	if (hasNext()) {
-	    Location ans = checks.get(0);
-	    checks.remove(checks.get(0));
+	    Location ans = checks.remove();
 	    return ans;
 	}
 	throw new IllegalStateException();
